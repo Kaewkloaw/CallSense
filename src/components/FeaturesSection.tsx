@@ -5,8 +5,7 @@ import {
   CheckCircle, 
   Smartphone, 
   Zap,
-  Brain,
-  Globe
+  Brain
 } from "lucide-react";
 
 const features = [
@@ -93,14 +92,6 @@ export function FeaturesSection() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="mt-16 text-center">
-          <div className="inline-flex items-center gap-4 p-4 rounded-2xl glass-card">
-            <Globe className="w-6 h-6 text-primary" />
-            <span className="text-muted-foreground">Available on all Samsung devices with OneUI 6.0+</span>
-          </div>
         </div>
       </div>
     </section>

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Play, Upload, Volume2, AlertTriangle, CheckCircle, Mic } from "lucide-react";
+import { useState, useRef } from "react";
+import { Play, Upload, Volume2, AlertTriangle, CheckCircle, Mic, FileAudio } from "lucide-react";
 import { Button } from "./ui/button";
 
 const scenarios = [
@@ -37,15 +37,51 @@ export function DemoSection() {
   const [selectedScenario, setSelectedScenario] = useState(scenarios[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showResult, setShowResult] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [isAnalyzingUpload, setIsAnalyzingUpload] = useState(false);
+  const [uploadResult, setUploadResult] = useState<{ result: "scam" | "safe"; analysis: string } | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handlePlay = () => {
     setIsPlaying(true);
     setShowResult(false);
+    setUploadedFile(null);
+    setUploadResult(null);
     setTimeout(() => {
       setIsPlaying(false);
       setShowResult(true);
     }, 2000);
   };
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setUploadedFile(file);
+      setShowResult(false);
+      setUploadResult(null);
+      setIsAnalyzingUpload(true);
+      
+      // Simulate analysis (demo purposes)
+      setTimeout(() => {
+        setIsAnalyzingUpload(false);
+        // Random result for demo
+        const isScam = Math.random() > 0.5;
+        setUploadResult({
+          result: isScam ? "scam" : "safe",
+          analysis: isScam 
+            ? "AI Voice patterns detected. Suspicious emotional manipulation and urgency keywords found."
+            : "No suspicious patterns detected. Voice appears authentic."
+        });
+      }, 3000);
+    }
+  };
+
+  const handleUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const displayResult = uploadResult || (showResult ? { result: selectedScenario.result as "scam" | "safe", analysis: selectedScenario.analysis } : null);
+  const isAnalyzing = isPlaying || isAnalyzingUpload;
 
   return (
     <section id="demo" className="py-24 relative">
@@ -64,7 +100,7 @@ export function DemoSection() {
             See It <span className="gradient-text">In Action</span>
           </h2>
           <p className="text-lg text-muted-foreground">
-            Try our demo to see how CallGuard protects you from different scam scenarios.
+            Try our demo to see how Callsense protects you from different scam scenarios.
           </p>
         </div>
 
@@ -80,9 +116,11 @@ export function DemoSection() {
                   onClick={() => {
                     setSelectedScenario(scenario);
                     setShowResult(false);
+                    setUploadedFile(null);
+                    setUploadResult(null);
                   }}
                   className={`w-full p-4 rounded-xl text-left transition-all duration-300 ${
-                    selectedScenario.id === scenario.id
+                    selectedScenario.id === scenario.id && !uploadedFile
                       ? "glass-card shadow-lg border-primary/50"
                       : "bg-muted/50 hover:bg-muted"
                   }`}
@@ -100,8 +138,23 @@ export function DemoSection() {
               ))}
             </div>
 
+            {/* Uploaded file display */}
+            {uploadedFile && (
+              <div className="p-4 rounded-xl glass-card border-primary/50 space-y-2">
+                <div className="flex items-center gap-3">
+                  <FileAudio className="w-5 h-5 text-primary" />
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold truncate">{uploadedFile.name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div className="flex gap-4">
-              <Button variant="hero" size="lg" onClick={handlePlay} disabled={isPlaying}>
+              <Button variant="hero" size="lg" onClick={handlePlay} disabled={isAnalyzing}>
                 {isPlaying ? (
                   <>
                     <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
@@ -114,7 +167,14 @@ export function DemoSection() {
                   </>
                 )}
               </Button>
-              <Button variant="glass" size="lg">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="audio/*"
+                onChange={handleFileUpload}
+                className="hidden"
+              />
+              <Button variant="glass" size="lg" onClick={handleUploadClick} disabled={isAnalyzing}>
                 <Upload className="w-5 h-5" />
                 Upload Audio
               </Button>
@@ -141,8 +201,12 @@ export function DemoSection() {
                   <div className="flex-1 p-6 space-y-6">
                     {/* Call info */}
                     <div className="text-center space-y-2">
-                      <p className="text-sm text-muted-foreground">Incoming Call</p>
-                      <p className="font-display text-xl font-semibold">{selectedScenario.title}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {uploadedFile ? "Uploaded Audio" : "Incoming Call"}
+                      </p>
+                      <p className="font-display text-xl font-semibold">
+                        {uploadedFile ? uploadedFile.name.split('.')[0] : selectedScenario.title}
+                      </p>
                     </div>
 
                     {/* Waveform animation */}
@@ -151,10 +215,10 @@ export function DemoSection() {
                         <div
                           key={i}
                           className={`w-1 rounded-full transition-all duration-300 ${
-                            isPlaying ? "bg-primary animate-pulse" : "bg-muted"
+                            isAnalyzing ? "bg-primary animate-pulse" : "bg-muted"
                           }`}
                           style={{
-                            height: isPlaying ? `${Math.random() * 60 + 20}%` : "20%",
+                            height: isAnalyzing ? `${Math.random() * 60 + 20}%` : "20%",
                             animationDelay: `${i * 0.05}s`,
                           }}
                         />
@@ -162,7 +226,7 @@ export function DemoSection() {
                     </div>
 
                     {/* Analysis indicator */}
-                    {isPlaying && (
+                    {isAnalyzing && (
                       <div className="flex items-center justify-center gap-2 text-primary">
                         <Mic className="w-5 h-5 animate-pulse" />
                         <span className="text-sm font-medium">Analyzing voice...</span>
@@ -170,14 +234,14 @@ export function DemoSection() {
                     )}
 
                     {/* Result */}
-                    {showResult && (
+                    {displayResult && !isAnalyzing && (
                       <div className={`p-4 rounded-2xl space-y-3 animate-scale-in ${
-                        selectedScenario.result === "scam"
+                        displayResult.result === "scam"
                           ? "bg-destructive/10 border border-destructive/20"
                           : "bg-green-500/10 border border-green-500/20"
                       }`}>
                         <div className="flex items-center gap-2">
-                          {selectedScenario.result === "scam" ? (
+                          {displayResult.result === "scam" ? (
                             <>
                               <AlertTriangle className="w-5 h-5 text-destructive" />
                               <span className="font-semibold text-destructive">Scam Detected</span>
@@ -190,7 +254,7 @@ export function DemoSection() {
                           )}
                         </div>
                         <p className="text-sm text-muted-foreground">
-                          {selectedScenario.analysis}
+                          {displayResult.analysis}
                         </p>
                       </div>
                     )}
