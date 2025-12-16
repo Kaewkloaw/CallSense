@@ -28,7 +28,7 @@ export function HeroSection() {
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-lg animate-slide-up" style={{ animationDelay: '0.2s' }}>
               Advanced AI-powered call protection that detects fraud in real-time. 
-              No app download required — works directly on your device.
+              On-device processing for maximum privacy and speed.
             </p>
 
             <div className="flex flex-wrap gap-4 animate-slide-up" style={{ animationDelay: '0.3s' }}>

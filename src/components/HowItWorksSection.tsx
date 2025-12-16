@@ -5,7 +5,7 @@ const steps = [
     icon: Phone,
     step: "01",
     title: "Call Initiated",
-    description: "When you receive a call, CallGuard immediately activates and begins monitoring.",
+    description: "When you receive a call, Callsense immediately activates and begins monitoring.",
   },
   {
     icon: Brain,
@@ -34,7 +34,7 @@ export function HowItWorksSection() {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <h2 className="font-display text-4xl md:text-5xl font-bold">
-            How <span className="gradient-text">CallGuard</span> Works
+            How <span className="gradient-text">Callsense</span> Works
           </h2>
           <p className="text-lg text-muted-foreground">
             Protection happens in milliseconds, completely transparent to you.
@@ -93,7 +93,7 @@ export function HowItWorksSection() {
             </div>
             <div className="absolute bottom-6 left-6 right-6">
               <p className="font-display text-xl font-semibold text-foreground">Watch Full Demo Video</p>
-              <p className="text-sm text-muted-foreground">See CallGuard in action protecting real users</p>
+              <p className="text-sm text-muted-foreground">See Callsense in action protecting real users</p>
             </div>
           </div>
         </div>
