@@ -1,14 +1,14 @@
 import { Play, Shield, Phone, Zap } from "lucide-react";
 import { Button } from "./ui/button";
-
 export function HeroSection() {
-  return (
-    <section className="relative min-h-screen pt-32 pb-20 overflow-hidden">
+  return <section className="relative min-h-screen pt-32 pb-20 overflow-hidden">
       {/* Background decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute top-1/3 -right-32 w-96 h-96 rounded-full bg-secondary/10 blur-3xl" />
-        <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-30" style={{ background: 'var(--gradient-glow)' }} />
+        <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-30" style={{
+        background: 'var(--gradient-glow)'
+      }} />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -17,21 +17,27 @@ export function HeroSection() {
           <div className="space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card animate-fade-in">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-sm text-muted-foreground">Powered by KBTG × Samsung</span>
+              <span className="text-sm text-muted-foreground">Powered by Callsense     </span>
             </div>
 
-            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-tight animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-tight animate-slide-up" style={{
+            animationDelay: '0.1s'
+          }}>
               <span className="gradient-text">Protect</span> Your Calls
               <br />
               From <span className="gradient-text">Scammers</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-muted-foreground max-w-lg animate-slide-up" style={{ animationDelay: '0.2s' }}>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-lg animate-slide-up" style={{
+            animationDelay: '0.2s'
+          }}>
               Advanced AI-powered call protection that detects fraud in real-time. 
               On-device processing for maximum privacy and speed.
             </p>
 
-            <div className="flex flex-wrap gap-4 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+            <div className="flex flex-wrap gap-4 animate-slide-up" style={{
+            animationDelay: '0.3s'
+          }}>
               <Button variant="hero" size="xl">
                 <Shield className="w-5 h-5" />
                 Start Protection
@@ -43,7 +49,9 @@ export function HeroSection() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-8 pt-8 border-t border-border/50 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+            <div className="grid grid-cols-3 gap-8 pt-8 border-t border-border/50 animate-slide-up" style={{
+            animationDelay: '0.4s'
+          }}>
               <div>
                 <p className="font-display text-3xl font-bold gradient-text">99.7%</p>
                 <p className="text-sm text-muted-foreground">Detection Rate</p>
@@ -60,10 +68,14 @@ export function HeroSection() {
           </div>
 
           {/* Right content - Phone mockup */}
-          <div className="relative flex justify-center lg:justify-end animate-scale-in" style={{ animationDelay: '0.3s' }}>
+          <div className="relative flex justify-center lg:justify-end animate-scale-in" style={{
+          animationDelay: '0.3s'
+        }}>
             <div className="relative">
               {/* Glow effect */}
-              <div className="absolute inset-0 blur-3xl opacity-40" style={{ background: 'var(--gradient-hero)' }} />
+              <div className="absolute inset-0 blur-3xl opacity-40" style={{
+              background: 'var(--gradient-hero)'
+            }} />
               
               {/* Phone */}
               <div className="relative phone-mockup w-72 md:w-80 animate-float">
@@ -113,14 +125,18 @@ export function HeroSection() {
               </div>
 
               {/* Floating badges */}
-              <div className="absolute -left-8 top-1/4 glass-card px-4 py-2 rounded-full shadow-lg animate-float" style={{ animationDelay: '1s' }}>
+              <div className="absolute -left-8 top-1/4 glass-card px-4 py-2 rounded-full shadow-lg animate-float" style={{
+              animationDelay: '1s'
+            }}>
                 <div className="flex items-center gap-2">
                   <Zap className="w-4 h-4 text-primary" />
                   <span className="text-sm font-medium">AI Voice Check</span>
                 </div>
               </div>
 
-              <div className="absolute -right-4 bottom-1/3 glass-card px-4 py-2 rounded-full shadow-lg animate-float" style={{ animationDelay: '2s' }}>
+              <div className="absolute -right-4 bottom-1/3 glass-card px-4 py-2 rounded-full shadow-lg animate-float" style={{
+              animationDelay: '2s'
+            }}>
                 <div className="flex items-center gap-2">
                   <Shield className="w-4 h-4 text-green-500" />
                   <span className="text-sm font-medium">Verified Caller</span>
@@ -130,6 +146,5 @@ export function HeroSection() {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 }
