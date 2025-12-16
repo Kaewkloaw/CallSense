@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Play, Upload, Volume2, AlertTriangle, CheckCircle, Mic, FileAudio } from "lucide-react";
+import { Play, Upload, AlertTriangle, CheckCircle, Mic, FileAudio, Circle } from "lucide-react";
 import { Button } from "./ui/button";
 
 const scenarios = [
@@ -40,17 +40,48 @@ export function DemoSection() {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isAnalyzingUpload, setIsAnalyzingUpload] = useState(false);
   const [uploadResult, setUploadResult] = useState<{ result: "scam" | "safe"; analysis: string } | null>(null);
+  const [isRecording, setIsRecording] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handlePlay = () => {
-    setIsPlaying(true);
-    setShowResult(false);
+  const handlePlayScenario = (scenario: typeof scenarios[0]) => {
+    setSelectedScenario(scenario);
     setUploadedFile(null);
     setUploadResult(null);
+    setIsPlaying(true);
+    setShowResult(false);
     setTimeout(() => {
       setIsPlaying(false);
       setShowResult(true);
     }, 2000);
+  };
+
+  const handleRecord = () => {
+    if (isRecording) {
+      // Stop recording
+      setIsRecording(false);
+      setIsAnalyzingUpload(true);
+      setUploadedFile(null);
+      setShowResult(false);
+      setUploadResult(null);
+      
+      // Simulate analysis
+      setTimeout(() => {
+        setIsAnalyzingUpload(false);
+        const isScam = Math.random() > 0.5;
+        setUploadResult({
+          result: isScam ? "scam" : "safe",
+          analysis: isScam 
+            ? "AI Voice patterns detected. Suspicious emotional manipulation and urgency keywords found."
+            : "No suspicious patterns detected. Voice appears authentic."
+        });
+      }, 3000);
+    } else {
+      // Start recording
+      setIsRecording(true);
+      setShowResult(false);
+      setUploadResult(null);
+      setUploadedFile(null);
+    }
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,10 +92,8 @@ export function DemoSection() {
       setUploadResult(null);
       setIsAnalyzingUpload(true);
       
-      // Simulate analysis (demo purposes)
       setTimeout(() => {
         setIsAnalyzingUpload(false);
-        // Random result for demo
         const isScam = Math.random() > 0.5;
         setUploadResult({
           result: isScam ? "scam" : "safe",
@@ -111,30 +140,33 @@ export function DemoSection() {
             
             <div className="grid gap-3">
               {scenarios.map((scenario) => (
-                <button
+                <div
                   key={scenario.id}
-                  onClick={() => {
-                    setSelectedScenario(scenario);
-                    setShowResult(false);
-                    setUploadedFile(null);
-                    setUploadResult(null);
-                  }}
-                  className={`w-full p-4 rounded-xl text-left transition-all duration-300 ${
-                    selectedScenario.id === scenario.id && !uploadedFile
+                  className={`w-full p-4 rounded-xl transition-all duration-300 ${
+                    selectedScenario.id === scenario.id && !uploadedFile && !isRecording
                       ? "glass-card shadow-lg border-primary/50"
                       : "bg-muted/50 hover:bg-muted"
                   }`}
                 >
-                  <div className="flex items-center justify-between">
-                    <div>
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex-1 min-w-0">
                       <p className="font-semibold">{scenario.title}</p>
                       <p className="text-sm text-muted-foreground">{scenario.description}</p>
                     </div>
-                    <div className={`w-3 h-3 rounded-full ${
-                      scenario.result === "scam" ? "bg-destructive" : "bg-green-500"
-                    }`} />
+                    <div className="flex items-center gap-3">
+                      <div className={`w-3 h-3 rounded-full ${
+                        scenario.result === "scam" ? "bg-destructive" : "bg-green-500"
+                      }`} />
+                      <button
+                        onClick={() => handlePlayScenario(scenario)}
+                        disabled={isAnalyzing || isRecording}
+                        className="w-10 h-10 rounded-full gradient-bg flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300 disabled:opacity-50 disabled:hover:scale-100"
+                      >
+                        <Play className="w-4 h-4 text-primary-foreground ml-0.5" />
+                      </button>
+                    </div>
                   </div>
-                </button>
+                </div>
               ))}
             </div>
 
@@ -154,16 +186,22 @@ export function DemoSection() {
             )}
 
             <div className="flex gap-4">
-              <Button variant="hero" size="lg" onClick={handlePlay} disabled={isAnalyzing}>
-                {isPlaying ? (
+              <Button 
+                variant="hero" 
+                size="lg" 
+                onClick={handleRecord} 
+                disabled={isAnalyzing}
+                className={isRecording ? "animate-pulse bg-destructive hover:bg-destructive/90" : ""}
+              >
+                {isRecording ? (
                   <>
-                    <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                    Analyzing...
+                    <Circle className="w-5 h-5 fill-current" />
+                    Stop Recording
                   </>
                 ) : (
                   <>
-                    <Volume2 className="w-5 h-5" />
-                    Play Demo
+                    <Mic className="w-5 h-5" />
+                    Record
                   </>
                 )}
               </Button>
@@ -174,7 +212,7 @@ export function DemoSection() {
                 onChange={handleFileUpload}
                 className="hidden"
               />
-              <Button variant="glass" size="lg" onClick={handleUploadClick} disabled={isAnalyzing}>
+              <Button variant="glass" size="lg" onClick={handleUploadClick} disabled={isAnalyzing || isRecording}>
                 <Upload className="w-5 h-5" />
                 Upload Audio
               </Button>
@@ -202,10 +240,10 @@ export function DemoSection() {
                     {/* Call info */}
                     <div className="text-center space-y-2">
                       <p className="text-sm text-muted-foreground">
-                        {uploadedFile ? "Uploaded Audio" : "Incoming Call"}
+                        {isRecording ? "Recording..." : uploadedFile ? "Uploaded Audio" : "Incoming Call"}
                       </p>
                       <p className="font-display text-xl font-semibold">
-                        {uploadedFile ? uploadedFile.name.split('.')[0] : selectedScenario.title}
+                        {isRecording ? "Live Recording" : uploadedFile ? uploadedFile.name.split('.')[0] : selectedScenario.title}
                       </p>
                     </div>
 
@@ -215,10 +253,10 @@ export function DemoSection() {
                         <div
                           key={i}
                           className={`w-1 rounded-full transition-all duration-300 ${
-                            isAnalyzing ? "bg-primary animate-pulse" : "bg-muted"
+                            isAnalyzing || isRecording ? "bg-primary animate-pulse" : "bg-muted"
                           }`}
                           style={{
-                            height: isAnalyzing ? `${Math.random() * 60 + 20}%` : "20%",
+                            height: isAnalyzing || isRecording ? `${Math.random() * 60 + 20}%` : "20%",
                             animationDelay: `${i * 0.05}s`,
                           }}
                         />
@@ -233,8 +271,16 @@ export function DemoSection() {
                       </div>
                     )}
 
+                    {/* Recording indicator */}
+                    {isRecording && !isAnalyzing && (
+                      <div className="flex items-center justify-center gap-2 text-destructive">
+                        <Circle className="w-4 h-4 fill-current animate-pulse" />
+                        <span className="text-sm font-medium">Recording audio...</span>
+                      </div>
+                    )}
+
                     {/* Result */}
-                    {displayResult && !isAnalyzing && (
+                    {displayResult && !isAnalyzing && !isRecording && (
                       <div className={`p-4 rounded-2xl space-y-3 animate-scale-in ${
                         displayResult.result === "scam"
                           ? "bg-destructive/10 border border-destructive/20"
