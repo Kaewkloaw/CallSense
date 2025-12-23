@@ -1,0 +1,93 @@
+{
+  "info": {
+    "_postman_id": "callsense-backend",
+    "name": "CallSense Backend API",
+    "description": "Collection for testing CallSense Backend - Audio file prediction with risk classification",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health & Status",
+      "item": [
+        {
+          "name": "Welcome",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": ["{{base_url}}"],
+              "path": [""]
+            },
+            "description": "Welcome endpoint - returns service info"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/status",
+              "host": ["{{base_url}}"],
+              "path": ["api", "status"]
+            },
+            "description": "Get backend service status"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Predictions",
+      "item": [
+        {
+          "name": "Predict Audio File",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/predict",
+              "host": ["{{base_url}}"],
+              "path": ["api", "predict"]
+            },
+            "description": "Upload an audio file (MP3 or WAV) for prediction\n\nSupported formats: .mp3, .wav\n\nResponse includes:\n- filename: Uploaded file name\n- y_prob: {human: number, nonhuman: number} (probabilities from model)\n- risk: {level: string, trustability: number} (AI risk classification)\n\nRisk Levels:\n- High Risk (AI voice): nonhuman >= 0.80\n- Medium Risk: 0.40 <= nonhuman < 0.80\n- Low Risk (Human voice): nonhuman < 0.40"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Predictions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/records",
+              "host": ["{{base_url}}"],
+              "path": ["api", "records"]
+            },
+            "description": "Retrieve all prediction records from CSV\n\nReturns an array of records with:\n- timestamp: When prediction was made\n- filename: Audio file name\n- human_score: Human probability\n- nonhuman_score: AI probability\n- risk_level: Classification level\n- actual_label: Manual verification label (PENDING or user-set)"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ]
+}
