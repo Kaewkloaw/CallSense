@@ -17,13 +17,14 @@ export function Navbar() {
           <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a>
           <a href="#demo" className="text-muted-foreground hover:text-foreground transition-colors">Demo</a>
           <a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">How It Works</a>
+          
           <a href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</a>
         </div>
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <Button variant="gradient" size="sm">
-            Get Started
+            Watch Demo Video
           </Button>
         </div>
       </div>

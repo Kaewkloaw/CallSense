@@ -1,52 +1,120 @@
 # CallSense Backend
 
-A Bun + Hono TypeScript server for speech classification. Accepts audio file uploads, sends them to a FastAPI ML model, classifies risk based on AI voice detection, and maintains CSV records of predictions.
+Speech classification server built with Bun + Hono. Processes audio uploads, classifies voice types (Human vs AI), and maintains prediction records.
 
-## Features
+## Quick Setup
 
-- ✅ Audio file upload with MP3/WAV support
-- ✅ Integration with FastAPI ML model server
-- ✅ Speech classification: Human vs AI voice detection
-- ✅ Risk assessment based on confidence thresholds
-- ✅ Automatic CSV record keeping of predictions
-- ✅ File persistence in `mp3_files/` directory
-- ✅ CORS enabled for frontend communication
-- ✅ TypeScript for type safety
-- ✅ Health check endpoints
-
-## Setup
-
-### Install dependencies:
-
+### 1. Install dependencies
 ```bash
 bun install
 ```
 
-### Configure environment:
-
-Set the MODEL API endpoint (default: `http://localhost:8000`):
-
-```bash
-export MODEL_API_URL=http://localhost:8000
-```
-
-Or create a `.env` file:
+### 2. Configure environment
+Create a `.env` file:
 ```
 MODEL_API_URL=http://localhost:8000
 PORT=3000
 ```
 
-### Run the server:
-
+### 3. Run the server
 ```bash
-# Development (with hot reload)
 bun run dev
-
-# Production
-bun run start
 ```
 
-The server will start on `http://localhost:3000`
+Server runs on `http://localhost:3000`
+
+## API Documentation
+
+Interactive Swagger UI available at: **`http://localhost:3000/doc`**
+
+## API Endpoints
+
+### Upload Audio
+```bash
+POST /api/upload
+Content-Type: multipart/form-data
+
+# Upload MP3 or WAV file
+```
+
+**Response**:
+```json
+{
+  "success": true,
+  "data": {
+    "id": "unique-id",
+    "filename": "audio.mp3",
+    "classification": "HUMAN",
+    "confidence": 0.95,
+    "risk_level": "LOW"
+  }
+}
+```
+
+### Health Check
+```bash
+GET /api/status
+```
+
+### Get Prediction History
+```bash
+GET /api/records
+```
+
+## Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `MODEL_API_URL` | `http://localhost:8000` | FastAPI ML model endpoint |
+| `PORT` | `3000` | Server port |
+
+## Key Features
+
+- ✅ Audio file upload (MP3/WAV support)
+- ✅ Integration with FastAPI ML model
+- ✅ Speech classification (Human vs AI voice)
+- ✅ Risk assessment based on confidence
+- ✅ CSV record keeping of predictions
+- ✅ CORS enabled
+- ✅ TypeScript type safety
+- ✅ Swagger API documentation
+- ✅ Health check endpoints
+
+## Project Structure
+
+```
+src/
+├── app.ts              # Main Hono application
+├── swagger.ts          # Swagger/OpenAPI configuration
+├── controllers/
+│   └── uploadController.ts    # Upload request handler
+├── routes/
+│   └── upload.ts       # Upload route definition
+├── services/
+│   ├── audioService.ts        # Audio processing
+│   ├── modelService.ts        # ML model integration
+│   └── recordService.ts       # Prediction records
+├── types/
+│   └── index.ts        # TypeScript types
+└── utils/
+    └── riskAssessment.ts      # Risk calculation logic
+```
+
+## Data Storage
+
+- **Audio Files**: Stored in `mp3_files/` directory
+- **Predictions**: Recorded in `records/predictions.csv`
+
+## Dependencies
+
+- **Hono** - Fast web framework
+- **@hono/swagger-ui** - API documentation
+- **TypeScript** - Type safety
+- Built with **Bun** runtime
+bun run dev
+```
+
+Server runs on `http://localhost:3000`
 
 ### Prerequisites:
 
