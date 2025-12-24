@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "callsense-backend",
     "name": "CallSense Backend API",
-    "description": "Collection for testing CallSense Backend - Audio file prediction with risk classification",
+    "description": "Collection for testing CallSense Backend - Audio file prediction with AI voice detection and risk classification",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -19,7 +19,7 @@
               "host": ["{{base_url}}"],
               "path": [""]
             },
-            "description": "Welcome endpoint - returns service info"
+            "description": "Welcome endpoint - returns service info and timestamp"
           },
           "response": []
         },
@@ -33,7 +33,7 @@
               "host": ["{{base_url}}"],
               "path": ["api", "status"]
             },
-            "description": "Get backend service status"
+            "description": "Get backend service status and version"
           },
           "response": []
         }
@@ -62,7 +62,7 @@
               "host": ["{{base_url}}"],
               "path": ["api", "predict"]
             },
-            "description": "Upload an audio file (MP3 or WAV) for prediction\n\nSupported formats: .mp3, .wav\n\nResponse includes:\n- filename: Uploaded file name\n- y_prob: {human: number, nonhuman: number} (probabilities from model)\n- risk: {level: string, trustability: number} (AI risk classification)\n\nRisk Levels:\n- High Risk (AI voice): nonhuman >= 0.80\n- Medium Risk: 0.40 <= nonhuman < 0.80\n- Low Risk (Human voice): nonhuman < 0.40"
+            "description": "Upload an audio file (MP3, WAV, M4A) for AI voice detection and risk assessment\n\nSupported formats: .mp3, .wav, .m4a\n\nResponse includes:\n- filename: Uploaded file name\n- y_prob: {human: number, nonhuman: number} (probabilities 0-1 from model)\n- risk:\n  - level: Risk classification string\n  - trustability: Trustability percentage (0-100)\n  - riskType: One of 'scam', 'suspicious', 'safe'\n\nRisk Classification:\n- High Risk (AI voice) → riskType: 'scam' (nonhuman >= 0.80)\n- Medium Risk (Suspicious) → riskType: 'suspicious' (0.40 <= nonhuman < 0.80)\n- Low Risk (Human) → riskType: 'safe' (nonhuman < 0.40)"
           },
           "response": []
         },
@@ -76,7 +76,7 @@
               "host": ["{{base_url}}"],
               "path": ["api", "records"]
             },
-            "description": "Retrieve all prediction records from CSV\n\nReturns an array of records with:\n- timestamp: When prediction was made\n- filename: Audio file name\n- human_score: Human probability\n- nonhuman_score: AI probability\n- risk_level: Classification level\n- actual_label: Manual verification label (PENDING or user-set)"
+            "description": "Retrieve all prediction records from CSV database\n\nReturns:\n- total: Total number of records\n- records: Array of prediction records with:\n  - timestamp: When prediction was made\n  - filename: Audio file name analyzed\n  - human_score: Human voice probability (0-1)\n  - nonhuman_score: AI voice probability (0-1)\n  - risk_level: Classification level string\n  - actual_label: Manual verification label (PENDING or verified)"
           },
           "response": []
         }

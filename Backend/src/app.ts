@@ -1,23 +1,27 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
+import { swaggerUI } from '@hono/swagger-ui'
 import { createUploadRoutes } from './routes/upload'
 import { createClassifier } from './services/modelService'
+import { swaggerSpec } from './swagger'
 
 const app = new Hono()
 
 // Initialize the ML model classifier
-// Points to the FastAPI model server running on port 8000
 const classifier = createClassifier(
   'model/yolo11n-best.pt',
   process.env.MODEL_API_URL || 'http://localhost:8000'
 )
 
-// CORS middleware
 app.use('*', cors({
-  origin: '*', // tighten in production
+  origin: '*',
   allowMethods: ['GET', 'POST', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Accept'],
 }))
+
+// Swagger UI
+app.get('/api-docs', swaggerUI({ url: '/swagger.json' }))
+app.get('/swagger.json', (c) => c.json(swaggerSpec))
 
 // Health check endpoint
 app.get('/', (c) => {
@@ -37,16 +41,11 @@ app.get('/api/status', (c) => {
   })
 })
 
-// Mount upload routes
 const uploadRoutes = createUploadRoutes(classifier)
 app.route('/api', uploadRoutes)
 
-// 404 handler
-app.notFound((c) => {
-  return c.json({ error: 'Endpoint not found' }, 404)
-})
+app.notFound((c) => c.json({ error: 'Endpoint not found' }, 404))
 
-// Error handler
 app.onError((err, c) => {
   console.error('Error:', err)
   return c.json({ error: 'Internal server error' }, 500)

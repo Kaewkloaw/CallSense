@@ -1,24 +1,105 @@
-# Welcome to your Lovable project
+# CallSense Frontend
 
-## Project info
+Modern React web application for audio file upload and AI voice detection analysis. Provides an intuitive interface for uploading audio files and viewing classification results.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Quick Setup
 
-## How can I edit this code?
+### 1. Install dependencies
+```bash
+bun install
+```
 
-There are several ways of editing your application.
+### 2. Run development server
+```bash
+bun run dev
+```
 
-**Use Lovable**
+Application will be available at `http://localhost:5173`
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+### 3. Build for production
+```bash
+bun run build
+```
 
-Changes made via Lovable will be committed automatically to this repo.
+Optimized build output in `dist/` directory
 
-**Use your preferred IDE**
+## Features
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- 📤 **Audio Upload** - Drag-and-drop or click to upload MP3/WAV files
+- 🎙️ **Voice Detection** - Real-time classification of human vs AI voices
+- 📊 **Risk Assessment** - Visual risk level indicators
+- 📝 **Prediction History** - View past classifications
+- 🌓 **Dark Mode** - Toggle between light and dark themes
+- 📱 **Responsive Design** - Works on desktop and mobile devices
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Tech Stack
+
+- **React 18** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Fast build tool
+- **Tailwind CSS** - Styling
+- **shadcn-ui** - Component library
+- **Axios** - HTTP requests
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── DemoSection.tsx        # Main demo interface
+│   ├── HeroSection.tsx        # Landing section
+│   ├── FeaturesSection.tsx    # Features showcase
+│   ├── HowItWorksSection.tsx  # Tutorial section
+│   ├── Navbar.tsx             # Navigation bar
+│   ├── Footer.tsx             # Footer
+│   ├── ThemeToggle.tsx        # Dark mode toggle
+│   └── ui/                    # shadcn-ui components
+├── pages/
+│   ├── Index.tsx              # Home page
+│   └── NotFound.tsx           # 404 page
+├── hooks/
+│   ├── useTheme.tsx           # Theme management
+│   └── use-toast.ts           # Toast notifications
+├── lib/
+│   └── utils.ts               # Utility functions
+├── App.tsx                    # Main app component
+└── main.tsx                   # Entry point
+```
+
+## API Integration
+
+The frontend communicates with the backend API at `http://localhost:3000/api/`
+
+**Main Endpoints Used**:
+- `POST /api/upload` - Upload and classify audio
+- `GET /api/records` - Fetch prediction history
+
+## Environment Configuration
+
+The backend URL is configured in components that make API calls. Update accordingly if running on a different server.
+
+## Requirements
+
+- **Backend** running on `http://localhost:3000`
+- **Node.js/Bun** for development
+
+## Available Scripts
+
+```bash
+bun run dev      # Start development server
+bun run build    # Build for production
+bun run preview  # Preview production build locally
+bun run lint     # Run ESLint
+```
+
+## Component Overview
+
+- **DemoSection** - Main upload and results interface
+- **HeroSection** - Welcome/intro section
+- **FeaturesSection** - Feature highlights
+- **HowItWorksSection** - How the system works
+- **Navbar** - Navigation and branding
+- **ThemeToggle** - Light/dark mode switch
 
 Follow these steps:
 
