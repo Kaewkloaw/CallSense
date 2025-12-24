@@ -68,7 +68,7 @@ Analyze an audio file for AI voice detection.
 **Response**:
 ```json
 {
-  "filename": "chinese-tiktok.mp3",
+  "filename": "audio.mp3",
   "y_prob": {
     "human": 0.1564779281616211,
     "nonhuman": 0.8435221314430237
