@@ -68,15 +68,16 @@ Analyze an audio file for AI voice detection.
 **Response**:
 ```json
 {
-  "risk": {
-    "level": "High Risk",
-    "riskType": "scam"
-  },
+  "filename": "chinese-tiktok.mp3",
   "y_prob": {
-    "human": 0.15,
-    "nonhuman": 0.85
+    "human": 0.1564779281616211,
+    "nonhuman": 0.8435221314430237
   },
-  "filename": "audio.mp3"
+  "risk": {
+    "level": "High Risk (AI voice)",
+    "trustability": 15.65,
+    "riskType": "scam"
+  }
 }
 ```
 
