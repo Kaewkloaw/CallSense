@@ -38,3 +38,5 @@ Timestamp,Filename,Human Score,Nonhuman Score,Risk Level,Actual Label
 2025-12-24T04:47:17.142Z,real_1.mp3,0.080037,0.919963,High Risk (AI voice),PENDING
 2025-12-24T04:47:20.531Z,fake_2.mp3,0.804846,0.195154,Low Risk (Human),PENDING
 2025-12-24T04:47:25.389Z,fake_1.mp3,0.065963,0.934036,High Risk (AI voice),PENDING
+2025-12-24T05:10:56.181Z,fake_1.mp3,0.065963,0.934036,High Risk (AI voice),PENDING
+2025-12-24T05:30:37.098Z,chinese-tiktok.mp3,0.156478,0.843522,High Risk (AI voice),PENDING
