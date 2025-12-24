@@ -5,29 +5,29 @@ import { Button } from "./ui/button";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const scenarios = [{
-  id: "chinese-tiktok",
-  title: "Bank Scam",
+  id: "1",
+  title: "fake1",
   description: "Caller pretending to be from your bank",
   result: null,
-  sampleFile: "/sample-voice/chinese-tiktok.mp3"
+  sampleFile: "/sample-voice/fake_1.mp3"
 }, {
-  id: "delivery",
-  title: "Delivery IVR",
+  id: "2",
+  title: "fake2",
   description: "Human voice - Automated delivery system (IVR)",
   result: null,
-  sampleFile: "/sample-voice/human-system.mp3"
+  sampleFile: "/sample-voice/fake_2.mp3"
 }, {
-  id: "real",
-  title: "Real Company",
+  id: "3",
+  title: "real1",
   description: "Verified business call",
   result: null,
-  sampleFile: "/sample-voice/men-to-girl.mp3"
+  sampleFile: "/sample-voice/real_1.mp3"
 }, {
-  id: "government",
-  title: "Government Scam",
+  id: "4",
+  title: "fake3",
   description: "Fake official threatening arrest",
   result:  null,
-  sampleFile: "/sample-voice/nature-sound.mp3"
+  sampleFile: "/sample-voice/fake_18.mp3"
 }];
 export function DemoSection() {
   const [selectedScenario, setSelectedScenario] = useState<typeof scenarios[0] | null>(scenarios[0]);
@@ -66,7 +66,9 @@ export function DemoSection() {
         if (scenario.sampleFile) {
           const response = await fetch(scenario.sampleFile);
           const blob = await response.blob();
-          const file = new File([blob], `${scenario.id}.mp3`, { type: 'audio/mpeg' });
+          // Extract filename from sampleFile path
+          const filename = scenario.sampleFile.split('/').pop() || `${scenario.id}.mp3`;
+          const file = new File([blob], filename, { type: 'audio/mpeg' });
           
           const formData = new FormData();
           formData.append("file", file);
