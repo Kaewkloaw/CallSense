@@ -2,15 +2,15 @@
 
 **AI Voice Detection System for Call Fraud Prevention**
 
-CallSense is an intelligent system that detects AI-generated voices in audio calls to protect users from voice spoofing scams and fraudulent calls. It analyzes voice characteristics and provides real-time risk assessments.
+Advanced AI-powered call protection that detects fraud in real-time. On-device processing for maximum privacy and speed.
 
-## What is CallSense?
+## CallSense MVP Feature - AI Voice Detection
+Advanced AI detects synthetic voices and deepfakes in real-time during calls.
 
 CallSense uses advanced machine learning to:
 - **Detect AI voices** - Identifies synthesized/AI-generated voice patterns
 - **Assess fraud risk** - Classifies calls as High Risk, Medium Risk, or Safe
 - **Prevent scams** - Helps users identify phone scams and impersonation attacks
-- **Keep records** - Maintains a history of analyzed calls
 
 ## Risk Assessment Levels
 
@@ -126,52 +126,6 @@ VITE_API_URL=http://localhost:3000   # Backend API endpoint
 - ✅ Responsive design
 - ✅ Demo scenarios with sample audio
 
-## Project Structure
-
-```
-callsense/
-├── Backend/
-│   ├── src/
-│   │   ├── app.ts                # Main Hono application
-│   │   ├── swagger.ts            # API documentation
-│   │   ├── controllers/
-│   │   │   └── uploadController.ts
-│   │   ├── routes/
-│   │   │   └── upload.ts
-│   │   ├── services/
-│   │   │   ├── audioService.ts
-│   │   │   ├── modelService.ts
-│   │   │   └── recordService.ts
-│   │   ├── types/
-│   │   │   └── index.ts
-│   │   └── utils/
-│   │       └── riskAssessment.ts
-│   ├── mp3_files/               # Uploaded audio storage
-│   ├── records/
-│   │   └── predictions.csv      # Analysis history
-│   ├── package.json
-│   └── tsconfig.json
-│
-└── Frontend/
-    ├── src/
-    │   ├── components/
-    │   │   ├── DemoSection.tsx   # Main demo interface
-    │   │   ├── HeroSection.tsx
-    │   │   ├── FeaturesSection.tsx
-    │   │   ├── HowItWorksSection.tsx
-    │   │   ├── Navbar.tsx
-    │   │   ├── ThemeToggle.tsx
-    │   │   └── ui/               # UI component library
-    │   ├── pages/
-    │   │   ├── Index.tsx
-    │   │   └── NotFound.tsx
-    │   ├── hooks/
-    │   ├── App.tsx
-    │   └── main.tsx
-    ├── package.json
-    └── vite.config.ts
-```
-
 ## Tech Stack
 
 ### Backend
@@ -251,29 +205,3 @@ Returns a confidence score: **0.0 (Human) to 1.0 (AI)**
 - Analysis results are logged in CSV format
 - No personal data is retained beyond analysis
 - All processing happens locally
-
-## License
-
-This project is part of KMUTT Year 3 project.
-
-```
-Backend/
-  ├── src/
-  │   ├── app.ts              # Main Hono app
-  │   ├── swagger.ts          # API documentation
-  │   ├── controllers/        # Request handlers
-  │   ├── routes/             # API routes
-  │   ├── services/           # Business logic
-  │   └── utils/              # Utilities
-  ├── package.json
-  └── tsconfig.json
-
-Frontend/
-  ├── src/
-  │   ├── components/         # React components
-  │   ├── pages/              # Page components
-  │   ├── hooks/              # Custom hooks
-  │   └── App.tsx             # Main app
-  ├── package.json
-  └── vite.config.ts
-```
