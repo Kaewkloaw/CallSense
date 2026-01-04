@@ -24,7 +24,7 @@ const features = [
   {
     icon: Mic,
     title: "AI Voice Detection",
-    description: "Advanced AI detects synthetic voices and deepfakes in real-time during calls.",
+    description: "Advanced AI detects synthetic voices and deepfakes in just-in-time during calls.",
     gradient: "from-purple-500 to-pink-500",
   },
   {
@@ -35,8 +35,8 @@ const features = [
   },
   {
     icon: AlertTriangle,
-    title: "Real-time Alerts",
-    description: "Get instant visual and audio warnings when suspicious activity is detected.",
+    title: "Just-in-Time Alerts",
+    description: "Get instant visual when suspicious activity is detected.",
     gradient: "from-yellow-500 to-amber-500",
   },
   {
@@ -67,7 +67,7 @@ export function FeaturesSection() {
           </h2>
           <p className="text-lg text-muted-foreground">
             End-to-end protection from the moment your phone rings. 
-            Powered by cutting-edge AI and real-time analysis.
+            Powered by cutting-edge AI and just-in-time analysis.
           </p>
         </div>
 

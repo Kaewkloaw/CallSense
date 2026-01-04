@@ -17,13 +17,7 @@ export function Footer() {
               Advanced AI-powered call protection. A collaboration between KBTG and Samsung.
             </p>
             <div className="flex gap-3">
-              <a href="#" className="w-10 h-10 rounded-lg glass-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-lg glass-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-lg glass-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
+              <a href="https://github.com/Kaewkloaw/callsense" className="w-10 h-10 rounded-lg glass-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
                 <Github className="w-5 h-5" />
               </a>
             </div>
@@ -46,15 +40,11 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-muted-foreground">
                 <Mail className="w-5 h-5 text-primary" />
-                <span>contact@callsense.io</span>
-              </li>
-              <li className="flex items-center gap-3 text-muted-foreground">
-                <Phone className="w-5 h-5 text-primary" />
-                <span>+66 2-XXX-XXXX</span>
+                <span>chananthorn.sriv@mail.kmutt.ac.th</span>
               </li>
               <li className="flex items-start gap-3 text-muted-foreground">
                 <MapPin className="w-5 h-5 text-primary mt-0.5" />
-                <span>KBTG Innovation Lab<br />Bangkok, Thailand</span>
+                <span>KMUTT<br />Bangkok, Thailand</span>
               </li>
             </ul>
           </div>
@@ -63,7 +53,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2024 Callsense. All rights reserved.
+            © 2025 Callsense. All rights reserved.
           </p>
           <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground">Powered by</span>

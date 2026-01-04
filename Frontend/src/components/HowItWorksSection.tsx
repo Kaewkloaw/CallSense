@@ -11,7 +11,7 @@ const steps = [
     icon: Brain,
     step: "02",
     title: "AI Analysis",
-    description: "Our AI analyzes voice patterns, caller ID, and conversation patterns in real-time.",
+    description: "Our AI analyzes voice patterns, caller ID, and conversation patterns just-in-time.",
   },
   {
     icon: Shield,

@@ -31,7 +31,7 @@ export function HeroSection() {
             <p className="text-lg md:text-xl text-muted-foreground max-w-lg animate-slide-up" style={{
             animationDelay: '0.2s'
           }}>
-              Advanced AI-powered call protection that detects fraud in real-time. 
+              Advanced AI-powered call protection that detects fraud just-in-time. 
               On-device processing for maximum privacy and speed.
             </p>
 
@@ -53,16 +53,16 @@ export function HeroSection() {
             animationDelay: '0.4s'
           }}>
               <div>
-                <p className="font-display text-3xl font-bold gradient-text">99.7%</p>
-                <p className="text-sm text-muted-foreground">Detection Rate</p>
+                <p className="font-display text-3xl font-bold gradient-text">AI-Powered</p>
+                <p className="text-sm text-muted-foreground">Fraud Detection</p>
               </div>
               <div>
-                <p className="font-display text-3xl font-bold gradient-text">50ms</p>
-                <p className="text-sm text-muted-foreground">Response Time</p>
+                <p className="font-display text-3xl font-bold gradient-text">&lt; 1.0s</p>
+                <p className="text-sm text-muted-foreground">Avg. Response Time</p>
               </div>
               <div>
-                <p className="font-display text-3xl font-bold gradient-text">10M+</p>
-                <p className="text-sm text-muted-foreground">Calls Protected</p>
+                <p className="font-display text-3xl font-bold gradient-text">100%</p>
+                <p className="text-sm text-muted-foreground">Privacy Guaranteed</p>
               </div>
             </div>
           </div>

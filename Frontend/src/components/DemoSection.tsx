@@ -4,30 +4,82 @@ import { Button } from "./ui/button";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+function audioBufferToWav(buffer) {
+  const numOfChan = buffer.numberOfChannels;
+  const length = buffer.length * numOfChan * 2;
+  const bufferArray = new ArrayBuffer(44 + length);
+  const view = new DataView(bufferArray);
+  const channels = [];
+  let offset = 0;
+  let pos = 0;
+
+  // Write WAV header
+  setUint32(0x46464952); // "RIFF"
+  setUint32(length + 36); // file length - 8
+  setUint32(0x45564157); // "WAVE"
+  setUint32(0x20746d66); // "fmt " chunk
+  setUint32(16); // length = 16
+  setUint16(1); // PCM (uncompressed)
+  setUint16(numOfChan);
+  setUint32(buffer.sampleRate);
+  setUint32(buffer.sampleRate * 2 * numOfChan); // avg. bytes/sec
+  setUint16(numOfChan * 2); // block-align
+  setUint16(16); // 16-bit
+  setUint32(0x61746164); // "data" - chunk
+  setUint32(length); // chunk length
+
+  // Write interleaved data
+  for (let i = 0; i < buffer.numberOfChannels; i++) {
+    channels.push(buffer.getChannelData(i));
+  }
+
+  while (pos < buffer.length) {
+    for (let i = 0; i < numOfChan; i++) {
+      let sample = Math.max(-1, Math.min(1, channels[i][pos]));
+      sample = sample < 0 ? sample * 0x8000 : sample * 0x7fff;
+      view.setInt16(44 + offset, sample, true);
+      offset += 2;
+    }
+    pos++;
+  }
+
+  function setUint16(data) {
+    view.setUint16(pos, data, true);
+    pos += 2;
+  }
+
+  function setUint32(data) {
+    view.setUint32(pos, data, true);
+    pos += 4;
+  }
+
+  return new Blob([bufferArray], { type: 'audio/wav' });
+}
+
 const scenarios = [{
   id: "1",
-  title: "fake1",
-  description: "Caller pretending to be from your bank",
+  title: "Identity Theft Scam",
+  description: "A fraudulent caller impersonating an official to solicit personal information, claiming it is for 'analytical purposes' only.",
   result: null,
-  sampleFile: "/sample-voice/fake_1.mp3"
+  sampleFile: "/sample-voice/Identity_Theft_Scam.mp3"
 }, {
   id: "2",
-  title: "fake2",
-  description: "Human voice - Automated delivery system (IVR)",
+  title: "Synthetic AI Voice",
+  description: "An AI-generated voice sample used for stress-testing the system's detection capabilities against synthesized speech.",
   result: null,
-  sampleFile: "/sample-voice/fake_2.mp3"
+  sampleFile: "/sample-voice/Synthetic_AI_Voice.mp3"
 }, {
   id: "3",
-  title: "real1",
-  description: "Verified business call",
+  title: "Official IVR System",
+  description: "A legitimate automated response system (Interactive Voice Response) used by corporations for customer service navigation.",
   result: null,
-  sampleFile: "/sample-voice/real_1.mp3"
+  sampleFile: "/sample-voice/Real_Auto_Response.mp3"
 }, {
   id: "4",
-  title: "fake3",
-  description: "Fake official threatening arrest",
-  result:  null,
-  sampleFile: "/sample-voice/fake_18.mp3"
+  title: "Breaking News Report",
+  description: "A live news segment featuring a well-known broadcast journalist delivering factual reporting with authentic vocal dynamics.",
+  result: null,
+  sampleFile: "/sample-voice/Breaking_News.wav"
 }];
 export function DemoSection() {
   const [selectedScenario, setSelectedScenario] = useState<typeof scenarios[0] | null>(scenarios[0]);
@@ -49,6 +101,8 @@ export function DemoSection() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const scenarioAudioRefObj = useRef<HTMLAudioElement>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
   
   const handlePlayScenario = (scenario: typeof scenarios[0]) => {
     setSelectedScenario(scenario);
@@ -197,30 +251,108 @@ export function DemoSection() {
     const secs = Math.floor(seconds % 60);
     return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
-  const handleRecord = () => {
-    if (isRecording) {
-      // Stop recording
+  const handleRecord = async () => {
+  if (isRecording) {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+      mediaRecorderRef.current.stop();
       setIsRecording(false);
-      setIsAnalyzingUpload(true);
-      setUploadedFile(null);
-      setShowResult(false);
-      setUploadResult(null);
-
-      // Simulate analysis
-      setTimeout(() => {
-        setIsAnalyzingUpload(false);
-        const isScam = Math.random() > 0.5;
-        setUploadResult({
-          result: isScam ? "scam" : "safe",
-          analysis: isScam ? "AI Voice patterns detected. Suspicious emotional manipulation and urgency keywords found." : "No suspicious patterns detected. Voice appears authentic."
-        });
-      }, 3000);
+    }
     } else {
-      // Start recording
-      setIsRecording(true);
-      setShowResult(false);
-      setUploadResult(null);
-      setUploadedFile(null);
+      try {
+        setSelectedScenario(null);
+        setIsPlaying(false);
+        setShowResult(false);
+        setUploadResult(null);
+        setUploadedFile(null);
+        setUploadedAudioUrl(null);
+        audioChunksRef.current = [];
+
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        
+        let mimeType = 'audio/webm';
+        if (MediaRecorder.isTypeSupported('audio/wav')) {
+          mimeType = 'audio/wav';
+        } else if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+          mimeType = 'audio/webm;codecs=opus';
+        }
+        
+        const mediaRecorder = new MediaRecorder(stream, { mimeType });
+        mediaRecorderRef.current = mediaRecorder;
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data.size > 0) {
+            audioChunksRef.current.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = async () => {
+          stream.getTracks().forEach(track => track.stop());
+
+          const audioBlob = new Blob(audioChunksRef.current, { type: mimeType });
+          const audioUrl = URL.createObjectURL(audioBlob);
+          setUploadedAudioUrl(audioUrl);
+
+          // Convert to WAV
+          const audioContext = new AudioContext();
+          const arrayBuffer = await audioBlob.arrayBuffer();
+          const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+          const wavBlob = await audioBufferToWav(audioBuffer);
+          
+          const file = new File([wavBlob], `recording-${Date.now()}.wav`, { type: 'audio/wav' });
+          setUploadedFile(file);
+
+          setIsAnalyzingUpload(true);
+
+          try {
+            const formData = new FormData();
+            formData.append("file", file);
+
+            const response = await fetch(`${API_URL}/api/predict`, {
+              method: "POST",
+              body: formData,
+            });
+
+            if (!response.ok) {
+              throw new Error(`API error: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            console.log("Prediction result:", data);
+
+            const riskType = data.risk.riskType || (data.risk.level.includes("High Risk") ? "scam" : data.risk.level.includes("Medium Risk") ? "suspicious" : "safe");
+            const nonhumanPercent = (data.y_prob.nonhuman * 100).toFixed(1);
+            const humanPercent = (data.y_prob.human * 100).toFixed(1);
+            
+            let analysisText = `${data.risk.level}\n`;
+            if (riskType === "scam") {
+              analysisText += `AI: ${nonhumanPercent}% detected\nBe cautious with this caller`;
+            } else if (riskType === "suspicious") {
+              analysisText += `AI: ${nonhumanPercent}% detected\nVerify caller identity`;
+            } else {
+              analysisText += `Human: ${humanPercent}% confirmed\nCaller appears legitimate`;
+            }
+            
+            setUploadResult({
+              result: riskType,
+              analysis: analysisText,
+            });
+          } catch (error) {
+            console.error("Recording analysis error:", error);
+            setUploadResult({
+              result: "safe",
+              analysis: `Failed to analyze audio. Please ensure backend is running on ${API_URL}`,
+            });
+          } finally {
+            setIsAnalyzingUpload(false);
+          }
+        };
+
+        mediaRecorder.start();
+        setIsRecording(true);
+      } catch (error) {
+        console.error("Error accessing microphone:", error);
+        alert("Could not access microphone. Please check your permissions.");
+      }
     }
   };
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -524,6 +656,17 @@ export function DemoSection() {
                           {displayResult.analysis.split('\n').slice(1).join('\n')}
                         </p>
                       </div>}
+
+                      {displayResult && displayResult.result === "scam" && (
+                        <div className="flex gap-4 w-full animate-popup">
+                          <button className="flex-1 py-3 rounded-xl bg-destructive text-destructive-foreground font-medium">
+                            Block
+                          </button>
+                          <button className="flex-1 py-3 rounded-xl bg-muted text-muted-foreground font-medium">
+                            Report
+                          </button>
+                        </div>
+                      )}
                   </div>
                 </div>
               </div>
