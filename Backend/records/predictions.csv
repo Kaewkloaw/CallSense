@@ -40,3 +40,15 @@ Timestamp,Filename,Human Score,Nonhuman Score,Risk Level,Actual Label
 2025-12-24T04:47:25.389Z,fake_1.mp3,0.065963,0.934036,High Risk (AI voice),PENDING
 2025-12-24T05:10:56.181Z,fake_1.mp3,0.065963,0.934036,High Risk (AI voice),PENDING
 2025-12-24T05:30:37.098Z,chinese-tiktok.mp3,0.156478,0.843522,High Risk (AI voice),PENDING
+2026-01-05T12:19:05.070Z,Identity_Theft_Scam.mp3,0.000044,0.999956,High Risk (AI voice),PENDING
+2026-01-05T12:19:12.244Z,Breaking_News.wav,0.658207,0.341793,Low Risk (Human),PENDING
+2026-01-05T12:19:13.989Z,Identity_Theft_Scam.mp3,0.000044,0.999956,High Risk (AI voice),PENDING
+2026-01-05T12:19:15.529Z,Synthetic_AI_Voice.mp3,0.099009,0.900991,High Risk (AI voice),PENDING
+2026-01-05T12:19:16.526Z,Real_Auto_Response.mp3,0.275384,0.724616,Medium Risk (Suspicious),PENDING
+2026-01-05T12:19:17.537Z,Breaking_News.wav,0.658207,0.341793,Low Risk (Human),PENDING
+2026-01-05T12:20:36.842Z,chinese-tiktok.mp3,0.046811,0.953189,High Risk (AI voice),PENDING
+2026-01-05T12:20:53.287Z,Breaking_News.wav,0.658207,0.341793,Low Risk (Human),PENDING
+2026-01-05T12:21:09.476Z,delivery.mp3,0.594234,0.405766,Medium Risk (Suspicious),PENDING
+2026-01-05T12:21:16.941Z,bank.mp3,0.046811,0.953189,High Risk (AI voice),PENDING
+2026-01-05T12:21:20.189Z,Real_Auto_Response.mp3,0.275384,0.724616,Medium Risk (Suspicious),PENDING
+2026-01-05T12:21:23.302Z,delivery.mp3,0.594234,0.405766,Medium Risk (Suspicious),PENDING
