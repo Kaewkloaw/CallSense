@@ -6,3 +6,4 @@ ultralytics
 torch
 fastapi
 uvicorn
+python-multipart
