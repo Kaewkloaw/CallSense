@@ -84,8 +84,13 @@ Follow the standard operating procedure below to initialize the full system stac
 * **Node.js & Bun** (Runtime Environment)
 * **Python 3.0+** (Inference Engine)
 * **PowerShell** (For Windows Environment Setup)
+* 
+### Step 1: Clone the repository
+```powershell
+git clone https://github.com/Kaewkloaw/callsense.git
+```
 
-### 1️⃣ Protocol A: Initialize ML Kernel
+### Step 2: Initialize ML Kernel [terminal 1] 
 *Execute the following in PowerShell from the project root to provision the virtual environment and launch the inference server.*
 
 ##### *optional*
@@ -116,7 +121,7 @@ python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 > **Status:** ML Model listening at `http://localhost:8000`
 
-### 2️⃣ Protocol B: Initialize Backend Gateway
+### Step 3: Initialize Backend Gateway [terminal 2] 
 *Open a new terminal instance.*
 
 ```bash
@@ -127,7 +132,7 @@ bun run dev
 ```
 > **Status:** API Gateway active at `http://localhost:3000` | Docs: `/api-docs`
 
-### 3️⃣ Protocol C: Initialize Frontend Interface
+### Step 4: Initialize Frontend Interface [terminal 3] 
 *Open a new terminal instance.*
 
 ```bash
