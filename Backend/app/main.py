@@ -29,7 +29,7 @@ async def predict(file: UploadFile = File(...)):
             detail="Only .wav and .mp3 are supported"
         )
         
-    file_path = UPLOAD_DIR / file.filename
+    file_path = UPLOAD_DIR / Path(file.filename).name
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
         
