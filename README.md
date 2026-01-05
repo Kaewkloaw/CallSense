@@ -85,7 +85,7 @@ Follow the standard operating procedure below to initialize the full system stac
 * **Python 3.0+** (Inference Engine)
 * **PowerShell** (For Windows Environment Setup)
 
-### 1️⃣ Protocol A: Initialize ML Kernel (Python/FastAPI)
+### 1️⃣ Protocol A: Initialize ML Kernel
 *Execute the following in PowerShell from the project root to provision the virtual environment and launch the inference server.*
 
 ##### optional
@@ -94,19 +94,18 @@ Remove-Item -Recurse -Force venv
 ```
 #### [INIT] Clean existing environments & Create VENV
 ```powershell
-Remove-Item -Recurse -Force venv 
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 ```
-
-#### [DEPENDENCIES] Force pip upgrade & Install Core Libraries
-
+##### optional
 ```powershell
 python -m ensurepip --upgrade
 python -m pip install --upgrade pip
-python -m pip install fastapi uvicorn python-multipart
 ```
-
+#### [DEPENDENCIES] Force pip upgrade & Install Core Libraries
+```powershell
+pip install -r .\Backend\requirements.txt
+```
 #### [LAUNCH] Start Inference Engine on Port 8000
 
 ```powershell
@@ -115,7 +114,7 @@ python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 > **Status:** ML Model listening at `http://localhost:8000`
 
-### 2️⃣ Protocol B: Initialize Backend Gateway (Bun)
+### 2️⃣ Protocol B: Initialize Backend Gateway
 *Open a new terminal instance.*
 
 ```bash
@@ -126,7 +125,7 @@ bun run dev
 ```
 > **Status:** API Gateway active at `http://localhost:3000` | Docs: `/api-docs`
 
-### 3️⃣ Protocol C: Initialize Frontend Interface (React)
+### 3️⃣ Protocol C: Initialize Frontend Interface
 *Open a new terminal instance.*
 
 ```bash
