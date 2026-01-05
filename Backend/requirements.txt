@@ -1,0 +1,9 @@
+numpy
+matplotlib
+Pillow
+librosa
+ultralytics
+torch
+fastapi
+uvicorn
+python-multipart
