@@ -88,16 +88,18 @@ Follow the standard operating procedure below to initialize the full system stac
 ### 1️⃣ Protocol A: Initialize ML Kernel
 *Execute the following in PowerShell from the project root to provision the virtual environment and launch the inference server.*
 
-##### optional
+##### *optional*
 ```powershell
 Remove-Item -Recurse -Force venv
 ```
 #### [INIT] Clean existing environments & Create VENV
 ```powershell
 python -m venv venv
+```
+```powershell
 .\venv\Scripts\Activate.ps1
 ```
-##### optional
+##### *optional*
 ```powershell
 python -m ensurepip --upgrade
 python -m pip install --upgrade pip
