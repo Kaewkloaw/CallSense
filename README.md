@@ -1,5 +1,4 @@
 <div align="center">
-
   <h1>🛡️ CALLSENSE 🛡️</h1>
   <h3>AI-POWERED VOICE FRAUD DETECTION SYSTEM</h3>
   
