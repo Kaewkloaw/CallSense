@@ -1,9 +1,7 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
-
 from app.utils import audio_to_spectrogram
 from app.model import SpeechClassifier
-
 from pathlib import Path
 import shutil
 
