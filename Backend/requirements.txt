@@ -5,3 +5,4 @@ librosa
 ultralytics
 torch
 fastapi
+uvicorn
