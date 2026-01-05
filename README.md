@@ -7,7 +7,7 @@
   
   <p>
     <b>Secure your communications against Deepfakes and AI Impersonation.</b><br>
-    <i>On-device processing. Real-time Analysis. Maximum Privacy.</i>
+    <i>On-device processing. Just-in-time Analysis. Maximum Privacy.</i>
   </p>
   
   ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
@@ -28,14 +28,14 @@
 
 ## 📡 System Overview
 
-**CallSense** is an advanced cybersecurity utility designed to mitigate the risks of Social Engineering and Voice Phishing (Vishing). By leveraging deep learning algorithms, CallSense analyzes audio frequencies in real-time to distinguish between organic human speech and synthetic AI-generated artifacts.
+**CallSense** is an advanced cybersecurity utility designed to mitigate the risks of Social Engineering and Voice Phishing (Vishing). By leveraging deep learning algorithms, CallSense analyzes audio frequencies in just-in-time to distinguish between organic human speech and synthetic AI-generated artifacts.
 
 This system operates on a **Zero-Trust** model regarding audio data, providing immediate forensic analysis to prevent fraud before it occurs.
 
 ### 🛡️ Core Capabilities (MVP)
 
 * **Synthetic Voice Detection:** Algorithmic identification of deepfake patterns and vocoder artifacts.
-* **Real-Time Threat Assessment:** Dynamic classification of calls into risk tiers (High/Medium/Low).
+* **Just-in-Time Threat Assessment:** Dynamic classification of calls into risk tiers (High/Medium/Low).
 * **Scam Prevention Protocols:** Proactive alerting system for impersonation attacks.
 * **Privacy-First Architecture:** All telemetry and analysis are processed locally; no raw audio data leaves the secure environment.
 
