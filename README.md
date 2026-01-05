@@ -111,7 +111,8 @@ python -m pip install --upgrade pip
 ```
 #### [DEPENDENCIES] Force pip upgrade & Install Core Libraries
 ```powershell
-pip install -r .\Backend\requirements.txt
+pip install uv
+uv pip install -r .\Backend\requirements.txt
 ```
 #### [LAUNCH] Start Inference Engine on Port 8000
 
