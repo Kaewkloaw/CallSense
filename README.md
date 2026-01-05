@@ -111,6 +111,7 @@ python -m pip install --upgrade pip
 #### [DEPENDENCIES] Force pip upgrade & Install Core Libraries
 ```powershell
 pip install uv
+uv pip install "llvmlite>=0.43.0" "numba>=0.59.0"
 uv pip install -r .\Backend\requirements.txt
 ```
 #### [LAUNCH] Start Inference Engine on Port 8000
