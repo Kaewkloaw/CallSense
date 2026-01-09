@@ -75,15 +75,19 @@ The Machine Learning kernel analyzes specific bio-acoustic markers:
 
 ---
 
-## 🚀 Deployment Protocols
+## 🚀 Getting Started
+### 🐳 Option 1: Docker (Recommended)
+Best for users who want to see the system in action without configuring local environments.<br>
+**Prerequisites:** [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
+```powershell
+   git clone https://github.com/Kaewkloaw/callsense.git
+   cd callsense
+   docker-compose up --build
+```
+### 💻 Option 2: Local Development (Manual Setup)
+Best for developers who want to modify the code and see changes in Just-in-time.<br>
+**Prerequisites:** Python 3.10+, Bun Runtime, and Node.js.
 
-Follow the standard operating procedure below to initialize the full system stack.
-
-### 📋 Prerequisites
-* **Node.js & Bun** (Runtime Environment)
-* **Python 3.0+** (Inference Engine)
-* **PowerShell** (For Windows Environment Setup)
-* 
 ### Step 1: Clone the repository
 ```powershell
 git clone https://github.com/Kaewkloaw/callsense.git
