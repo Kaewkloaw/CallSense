@@ -1,4 +1,5 @@
 import { Phone, Brain, Shield, Bell } from "lucide-react";
+import { useState, useRef, useEffect } from 'react';
 
 const steps = [
   {
@@ -28,6 +29,39 @@ const steps = [
 ];
 
 export function HowItWorksSection() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handlePlayVideo = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        videoRef.current.play();
+        setIsPlaying(true);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting && videoRef.current && isPlaying) {
+          videoRef.current.pause();
+          setIsPlaying(false);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [isPlaying]);
+
   return (
     <section id="how-it-works" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
@@ -82,19 +116,38 @@ export function HowItWorksSection() {
           </div>
         </div>
 
-        {/* Video embed placeholder */}
+
         <div className="mt-20 max-w-4xl mx-auto">
-          <div className="aspect-video rounded-3xl overflow-hidden glass-card shadow-2xl relative group cursor-pointer">
-            <div className="absolute inset-0 gradient-bg opacity-20" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-20 h-20 rounded-full gradient-bg flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300 cursor-pointer">
-                <div className="w-0 h-0 border-l-[16px] border-l-primary-foreground border-t-[10px] border-t-transparent border-b-[10px] border-b-transparent ml-1" />
+          <div
+            className="aspect-video rounded-3xl overflow-hidden glass-card shadow-2xl relative group cursor-pointer bg-black"
+            onClick={handlePlayVideo}
+          >
+            <video
+              ref={videoRef}
+              // poster="/callsenseThumbnail.jpg"
+              className={`w-full h-full object-cover transition-opacity duration-500 ${isPlaying ? 'opacity-100' : 'opacity-0'}`}
+              controls={isPlaying}
+              onPause={() => setIsPlaying(false)}
+              onEnded={() => setIsPlaying(false)}
+            >
+              <source src="/callsenseDemo.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+
+            {!isPlaying && (
+              <div className="absolute inset-0 z-10">
+                <div className="absolute inset-0 gradient-bg opacity-20" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-20 h-20 rounded-full gradient-bg flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300 cursor-pointer">
+                    <div className="w-0 h-0 border-l-[16px] border-l-primary-foreground border-t-[10px] border-t-transparent border-b-[10px] border-b-transparent ml-1" />
+                  </div>
+                </div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="font-display text-xl font-semibold text-foreground">Watch Full Demo Video</p>
+                  <p className="text-sm text-muted-foreground">See Callsense in action protecting real users</p>
+                </div>
               </div>
-            </div>
-            <div className="absolute bottom-6 left-6 right-6">
-              <p className="font-display text-xl font-semibold text-foreground">Watch Full Demo Video</p>
-              <p className="text-sm text-muted-foreground">See Callsense in action protecting real users</p>
-            </div>
+            )}
           </div>
         </div>
       </div>

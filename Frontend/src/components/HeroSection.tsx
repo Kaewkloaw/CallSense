@@ -1,6 +1,7 @@
 import { Play, Shield, Phone, Zap } from "lucide-react";
 import { Button } from "./ui/button";
 export function HeroSection() {
+  const videoUrl = import.meta.env.VITE_DEMO_VIDEO_URL as string | undefined;
   return <section className="relative min-h-screen pt-32 pb-20 overflow-hidden">
       {/* Background decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -42,10 +43,21 @@ export function HeroSection() {
                 <Shield className="w-5 h-5" />
                 Start Protection
               </Button>
-              <Button variant="glass" size="xl">
-                <Play className="w-5 h-5" />
-                Watch Demo
-              </Button>
+              {videoUrl ? (
+                <Button asChild variant="glass" size="xl">
+                  <a href={videoUrl} target="_blank" rel="noopener noreferrer">
+                    <Play className="w-5 h-5" />
+                    Watch Demo
+                  </a>
+                </Button>
+              ) : (
+                <Button asChild variant="glass" size="xl">
+                  <a href="#how-it-works">
+                    <Play className="w-5 h-5" />
+                    Watch Demo
+                  </a>
+                </Button>
+              )}
             </div>
 
             {/* Stats */}
