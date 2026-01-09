@@ -22,10 +22,6 @@ coverage/
 # dotenv
 .env*
 
-<<<<<<< HEAD
-# audio filesห
-=======
 # audio files
->>>>>>> f571e7fa40a59556dc5b79c2a505b9a907a1985c
 Backend/audio/*
 Backend/mp3_files/*
