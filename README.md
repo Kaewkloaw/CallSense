@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>🛡️ CALLSENSE 🛡️</h1>
+  <h1>🛡️CALLSENSE</h1>
   <h3>AI-POWERED VOICE FRAUD DETECTION SYSTEM</h3>
   
   <img src="https://readme-typing-svg.herokuapp.com/?lines=SYSTEM+STATUS:+ACTIVE;DETECTING+SYNTHETIC+VOICE+PATTERNS...;JUST-IN-TIME+FRAUD+PREVENTION;ZERO-TRUST+VOICE+SECURITY&font=Fira+Code&center=true&width=600&height=50&color=39FF14&background=000000&vCenter=true">
@@ -20,6 +20,7 @@
   ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
   ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
   ![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
+  ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
 </div>
 
