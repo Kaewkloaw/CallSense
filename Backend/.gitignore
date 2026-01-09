@@ -23,5 +23,7 @@ coverage/
 .env*
 
 # audio files
-Backend/audio/*
-Backend/mp3_files/*
+**/audio/*
+**/mp3_files/*
+**/*.mp3
+**/*.wav
