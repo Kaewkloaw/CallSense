@@ -16,7 +16,7 @@ const classifier = createClassifier(
 app.use('*', cors({
   origin: '*',
   allowMethods: ['GET', 'POST', 'OPTIONS'],
-  allowHeaders: ['Content-Type', 'Accept'],
+  allowHeaders: ['Content-Type', 'Accept', 'Authorization'],
 }))
 
 // Swagger UI
