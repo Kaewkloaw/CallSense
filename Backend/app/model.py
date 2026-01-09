@@ -1,4 +1,7 @@
 from ultralytics import YOLO
+from app.utils import audio_to_spectrogram 
+import numpy as np
+import os
 import torch
 
 class SpeechClassifier:
@@ -10,17 +13,29 @@ class SpeechClassifier:
         if warmup:
             self._warmup()
 
-
     def _warmup(self):
-        """
-        Warming up the model to load weights onto GPU/CPU
-        """
-        print("Warming up the model...")
-        # Assume the model accepts spectrogram input of size (1, 3, 224, 224)
+        print("Starting system warm-up...")
+        
+        # 1. Warmup YOLO
         dummy_input = torch.randn(1, 3, 224, 224)
         with torch.no_grad():
             _ = self.model(dummy_input)
-        print("Model warm-up complete")
+            
+        # 2. Warmup Spectrogram Generator 
+        try:
+            from scipy.io.wavfile import write
+            dummy_wav = "warmup_temp.wav"
+            sampling_rate = 16000
+            any_sound = np.zeros(sampling_rate // 10) # 0.1 sec of silence
+            write(dummy_wav, sampling_rate, any_sound.astype(np.float32))
+            _ = audio_to_spectrogram(dummy_wav)
+            
+            if os.path.exists(dummy_wav):
+                os.remove(dummy_wav)
+            print("✔️ Complete system warm-up (Model & Audio Processor)")
+        except Exception as e:
+            print(f"Audio warm-up skipped: {e}")
+
     
     def predict(self, image):
         """

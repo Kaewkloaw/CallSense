@@ -1,0 +1,19 @@
+# Node/Bun dependencies 
+node_modules
+dist
+build
+
+# Logs
+npm-debug.log
+yarn-error.log
+
+# Environment
+.env
+.env.local
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile

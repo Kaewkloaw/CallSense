@@ -21,3 +21,9 @@ coverage/
 
 # dotenv
 .env*
+
+# audio files
+**/audio/*
+**/mp3_files/*
+**/*.mp3
+**/*.wav

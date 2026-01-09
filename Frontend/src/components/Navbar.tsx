@@ -3,6 +3,7 @@ import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "./ui/button";
 
 export function Navbar() {
+  const videoUrl = import.meta.env.VITE_DEMO_VIDEO_URL as string | undefined;
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-border/50">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -23,9 +24,15 @@ export function Navbar() {
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <Button variant="gradient" size="sm">
-            Watch Demo Video
-          </Button>
+          {videoUrl ? (
+            <Button asChild variant="gradient" size="sm">
+              <a href={videoUrl} target="_blank" rel="noopener noreferrer">Watch Demo Video</a>
+            </Button>
+          ) : (
+            <Button asChild variant="gradient" size="sm">
+              <a href="#how-it-works">Watch Demo Video</a>
+            </Button>
+          )}
         </div>
       </div>
     </nav>
