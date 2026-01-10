@@ -11,14 +11,14 @@ export function Navbar() {
           <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center shadow-lg shadow-primary/25 group-hover:shadow-xl group-hover:shadow-primary/35 transition-shadow duration-300">
             <Shield className="w-5 h-5 text-primary-foreground" />
           </div>
-          <span className="font-display font-bold text-xl gradient-text">Callsense</span>
+          <span className="font-display font-bold text-xl gradient-text">CallSense</span>
         </a>
 
         <div className="hidden md:flex items-center gap-8">
           <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a>
           <a href="#demo" className="text-muted-foreground hover:text-foreground transition-colors">Demo</a>
           <a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">How It Works</a>
-          
+
           <a href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</a>
         </div>
 

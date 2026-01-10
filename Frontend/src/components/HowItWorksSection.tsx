@@ -6,7 +6,7 @@ const steps = [
     icon: Phone,
     step: "01",
     title: "Call Initiated",
-    description: "When you receive a call, Callsense immediately activates and begins monitoring.",
+    description: "When you receive a call, CallSense immediately activates and begins monitoring.",
   },
   {
     icon: Brain,
@@ -68,7 +68,7 @@ export function HowItWorksSection() {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <h2 className="font-display text-4xl md:text-5xl font-bold">
-            How <span className="gradient-text">Callsense</span> Works
+            How <span className="gradient-text">CallSense</span> Works
           </h2>
           <p className="text-lg text-muted-foreground">
             Protection happens in milliseconds, completely transparent to you.
@@ -124,13 +124,13 @@ export function HowItWorksSection() {
           >
             <video
               ref={videoRef}
-              // poster="/callsenseThumbnail.jpg"
+              // poster="/CallSenseThumbnail.jpg"
               className={`w-full h-full object-cover transition-opacity duration-500 ${isPlaying ? 'opacity-100' : 'opacity-0'}`}
               controls={isPlaying}
               onPause={() => setIsPlaying(false)}
               onEnded={() => setIsPlaying(false)}
             >
-              <source src="/callsenseDemo.mp4" type="video/mp4" />
+              <source src="/CallSenseDemo.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
 
@@ -144,7 +144,7 @@ export function HowItWorksSection() {
                 </div>
                 <div className="absolute bottom-6 left-6 right-6">
                   <p className="font-display text-xl font-semibold text-foreground">Watch Full Demo Video</p>
-                  <p className="text-sm text-muted-foreground">See Callsense in action protecting real users</p>
+                  <p className="text-sm text-muted-foreground">See CallSense in action protecting real users</p>
                 </div>
               </div>
             )}

@@ -11,13 +11,13 @@ export function Footer() {
               <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center shadow-lg">
                 <Shield className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="font-display font-bold text-xl gradient-text">Callsense</span>
+              <span className="font-display font-bold text-xl gradient-text">CallSense</span>
             </a>
             <p className="text-muted-foreground text-sm leading-relaxed">
               Advanced AI-powered call protection. A collaboration between KBTG and Samsung.
             </p>
             <div className="flex gap-3">
-              <a href="https://github.com/Kaewkloaw/callsense" className="w-10 h-10 rounded-lg glass-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
+              <a href="https://github.com/Kaewkloaw/CallSense" className="w-10 h-10 rounded-lg glass-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
                 <Github className="w-5 h-5" />
               </a>
             </div>
@@ -53,7 +53,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2025 Callsense. All rights reserved.
+            © 2025 CallSense. All rights reserved.
           </p>
           <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground">Powered by</span>

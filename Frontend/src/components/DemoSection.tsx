@@ -103,7 +103,7 @@ export function DemoSection() {
   const scenarioAudioRefObj = useRef<HTMLAudioElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
-  
+
   const handlePlayScenario = (scenario: typeof scenarios[0]) => {
     setSelectedScenario(scenario);
     // Clear uploaded file and result when playing scenario
@@ -113,7 +113,7 @@ export function DemoSection() {
     setShowResult(true); // Show result immediately
     setIsPlaying(true);
     setIsAnalyzingUpload(true); // Start analyzing
-    
+
     // Fetch analysis from API using the sample file
     const fetchScenarioAnalysis = async () => {
       try {
@@ -123,7 +123,7 @@ export function DemoSection() {
           // Extract filename from sampleFile path
           const filename = scenario.sampleFile.split('/').pop() || `${scenario.id}.mp3`;
           const file = new File([blob], filename, { type: 'audio/mpeg' });
-          
+
           const formData = new FormData();
           formData.append("file", file);
 
@@ -137,7 +137,7 @@ export function DemoSection() {
             const riskType = data.risk.riskType || (data.risk.level.includes("High Risk") ? "scam" : data.risk.level.includes("Medium Risk") ? "suspicious" : "safe");
             const nonhumanPercent = (data.y_prob.nonhuman * 100).toFixed(1);
             const humanPercent = (data.y_prob.human * 100).toFixed(1);
-            
+
             let analysisText = `${data.risk.level}\n`;
             if (riskType === "scam") {
               analysisText += `AI: ${nonhumanPercent}% detected\nBe cautious with this caller`;
@@ -146,7 +146,7 @@ export function DemoSection() {
             } else {
               analysisText += `Human: ${humanPercent}% confirmed\nCaller appears legitimate`;
             }
-            
+
             setUploadResult({
               result: riskType,
               analysis: analysisText,
@@ -159,16 +159,16 @@ export function DemoSection() {
         setIsAnalyzingUpload(false);
       }
     };
-    
+
     // If scenario has an audio file, play it
     if (scenario.sampleFile && scenarioAudioRefObj.current) {
       // Set the src directly
       scenarioAudioRefObj.current.src = scenario.sampleFile;
       scenarioAudioRefObj.current.currentTime = 0;
-      
+
       // Fetch analysis in parallel
       fetchScenarioAnalysis();
-      
+
       // Use a small delay to ensure src is set before playing
       setTimeout(() => {
         scenarioAudioRefObj.current?.play().catch(err => {
@@ -178,7 +178,7 @@ export function DemoSection() {
     } else {
       // No audio file for playback, but fetch analysis
       fetchScenarioAnalysis();
-      
+
       // Stop playing after showing result
       setTimeout(() => {
         setIsPlaying(false);
@@ -252,11 +252,11 @@ export function DemoSection() {
     return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
   const handleRecord = async () => {
-  if (isRecording) {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
-      mediaRecorderRef.current.stop();
-      setIsRecording(false);
-    }
+    if (isRecording) {
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+        mediaRecorderRef.current.stop();
+        setIsRecording(false);
+      }
     } else {
       try {
         setSelectedScenario(null);
@@ -268,14 +268,14 @@ export function DemoSection() {
         audioChunksRef.current = [];
 
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        
+
         let mimeType = 'audio/webm';
         if (MediaRecorder.isTypeSupported('audio/wav')) {
           mimeType = 'audio/wav';
         } else if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
           mimeType = 'audio/webm;codecs=opus';
         }
-        
+
         const mediaRecorder = new MediaRecorder(stream, { mimeType });
         mediaRecorderRef.current = mediaRecorder;
 
@@ -297,7 +297,7 @@ export function DemoSection() {
           const arrayBuffer = await audioBlob.arrayBuffer();
           const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
           const wavBlob = await audioBufferToWav(audioBuffer);
-          
+
           const file = new File([wavBlob], `recording-${Date.now()}.wav`, { type: 'audio/wav' });
           setUploadedFile(file);
 
@@ -322,7 +322,7 @@ export function DemoSection() {
             const riskType = data.risk.riskType || (data.risk.level.includes("High Risk") ? "scam" : data.risk.level.includes("Medium Risk") ? "suspicious" : "safe");
             const nonhumanPercent = (data.y_prob.nonhuman * 100).toFixed(1);
             const humanPercent = (data.y_prob.human * 100).toFixed(1);
-            
+
             let analysisText = `${data.risk.level}\n`;
             if (riskType === "scam") {
               analysisText += `AI: ${nonhumanPercent}% detected\nBe cautious with this caller`;
@@ -331,7 +331,7 @@ export function DemoSection() {
             } else {
               analysisText += `Human: ${humanPercent}% confirmed\nCaller appears legitimate`;
             }
-            
+
             setUploadResult({
               result: riskType,
               analysis: analysisText,
@@ -362,7 +362,7 @@ export function DemoSection() {
       setSelectedScenario(null);
       setIsPlaying(false);
       setShowResult(false);
-      
+
       setUploadedFile(file);
       // Create a blob URL for the audio player
       const audioUrl = URL.createObjectURL(file);
@@ -391,7 +391,7 @@ export function DemoSection() {
         const riskType = data.risk.riskType || (data.risk.level.includes("High Risk") ? "scam" : data.risk.level.includes("Medium Risk") ? "suspicious" : "safe");
         const nonhumanPercent = (data.y_prob.nonhuman * 100).toFixed(1);
         const humanPercent = (data.y_prob.human * 100).toFixed(1);
-        
+
         // Generate detailed analysis message
         let analysisText = `${data.risk.level}\n`;
         if (riskType === "scam") {
@@ -401,7 +401,7 @@ export function DemoSection() {
         } else {
           analysisText += `Human: ${humanPercent}% confirmed\nCaller appears legitimate`;
         }
-        
+
         setUploadResult({
           result: riskType,
           analysis: analysisText,
@@ -422,257 +422,256 @@ export function DemoSection() {
   };
   const displayResult = uploadResult;
   const isAnalyzing = isPlaying || isAnalyzingUpload;
-  
+
   return <section id="demo" className="py-24 relative">
-      {/* Hidden audio element for scenario playback */}
-      <audio 
-        ref={scenarioAudioRefObj}
-        src={selectedScenario?.sampleFile || ""}
-        onTimeUpdate={handleScenarioTimeUpdate}
-        onLoadedMetadata={handleScenarioLoadedMetadata}
-        onEnded={() => {
-          setIsPlaying(false);
-        }}
-        className="hidden"
-      />
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute bottom-0 left-0 right-0 h-1/2" style={{
+    {/* Hidden audio element for scenario playback */}
+    <audio
+      ref={scenarioAudioRefObj}
+      src={selectedScenario?.sampleFile || ""}
+      onTimeUpdate={handleScenarioTimeUpdate}
+      onLoadedMetadata={handleScenarioLoadedMetadata}
+      onEnded={() => {
+        setIsPlaying(false);
+      }}
+      className="hidden"
+    />
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute bottom-0 left-0 right-0 h-1/2" style={{
         background: 'var(--gradient-card)'
       }} />
+    </div>
+
+    <div className="container mx-auto px-4 relative z-10">
+      {/* Header */}
+      <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card">
+          <Play className="w-4 h-4 text-primary" />
+          <span className="text-sm text-muted-foreground">Interactive Demo</span>
+        </div>
+        <h2 className="font-display text-4xl md:text-5xl font-bold">
+          See It <span className="gradient-text">In Action</span>
+        </h2>
+        <p className="text-lg text-muted-foreground">
+          Try our demo to see how CallSense protects you from different scam scenarios.
+        </p>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card">
-            <Play className="w-4 h-4 text-primary" />
-            <span className="text-sm text-muted-foreground">Interactive Demo</span>
+      <div className="grid lg:grid-cols-2 gap-12 items-center">
+        {/* Scenario selector */}
+        <div className="space-y-6">
+          <h3 className="font-display text-xl font-semibold">Select a Scenario</h3>
+
+          <div className="grid gap-3">
+            {scenarios.map(scenario => <div key={scenario.id} className={`w-full p-4 rounded-xl transition-all duration-300 ${selectedScenario && selectedScenario.id === scenario.id && !isRecording ? "glass-card shadow-lg border-primary/50" : "bg-muted/50 hover:bg-muted"}`}>
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold">{scenario.title}</p>
+                  <p className="text-sm text-muted-foreground">{scenario.description}</p>
+                </div>
+                <div className="flex items-center gap-3">
+
+                  <button onClick={() => selectedScenario && selectedScenario.id === scenario.id && isPlaying ? handleStopScenario() : handlePlayScenario(scenario)} disabled={isAnalyzingUpload || isRecording} className="w-10 h-10 rounded-full gradient-bg flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300 disabled:opacity-50 disabled:hover:scale-100">
+                    {selectedScenario && selectedScenario.id === scenario.id && isPlaying ? (
+                      <Square className="w-4 h-4 text-primary-foreground fill-primary-foreground" />
+                    ) : (
+                      <Play className="w-4 h-4 text-primary-foreground ml-0.5" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Scenario Audio Player - On Same Card */}
+              {selectedScenario?.id === scenario.id && scenario.sampleFile && isPlaying && (
+                <div className="pt-3  space-y-2">
+                  {/* Time and Duration */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-muted-foreground">
+                      {formatTime(scenarioCurrentTime)} / {formatTime(scenarioDuration)}
+                    </span>
+                  </div>
+
+                  {/* Progress Bar */}
+                  <input
+                    type="range"
+                    min="0"
+                    max={scenarioDuration || 0}
+                    value={scenarioCurrentTime}
+                    onChange={handleScenarioSeek}
+                    className="w-full h-2 rounded-lg appearance-none cursor-pointer"
+                    style={{
+                      background: `linear-gradient(to right, hsl(var(--primary)) 0%, hsl(var(--primary)) ${(scenarioCurrentTime / scenarioDuration) * 100}%, hsl(var(--muted-foreground) / 0.3) ${(scenarioCurrentTime / scenarioDuration) * 100}%, hsl(var(--muted-foreground) / 0.3) 100%)`
+                    }}
+                  />
+                </div>
+              )}
+            </div>)}
           </div>
-          <h2 className="font-display text-4xl md:text-5xl font-bold">
-            See It <span className="gradient-text">In Action</span>
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            Try our demo to see how Callsense protects you from different scam scenarios.
-          </p>
+
+          {/* Uploaded file display */}
+          {uploadedFile && <div className="p-4 rounded-xl glass-card border-primary/50 space-y-3">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3 flex-1 min-w-0">
+                <FileAudio className="w-5 h-5 text-primary" />
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold truncate">{uploadedFile.name}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB
+                  </p>
+                </div>
+              </div>
+              {uploadedAudioUrl && (
+                <button
+                  onClick={isPlayingUpload ? handleStopUpload : handlePlayUpload}
+                  disabled={isAnalyzingUpload}
+                  className="w-10 h-10 rounded-full gradient-bg flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300 disabled:opacity-50 disabled:hover:scale-100 flex-shrink-0"
+                >
+                  {isPlayingUpload ? (
+                    <Square className="w-4 h-4 text-primary-foreground fill-primary-foreground" />
+                  ) : (
+                    <Play className="w-4 h-4 text-primary-foreground ml-0.5" />
+                  )}
+                </button>
+              )}
+            </div>
+            {uploadedAudioUrl && (
+              <div className="space-y-2">
+                {/* Time and Duration */}
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-muted-foreground">
+                    {formatTime(audioCurrentTime)} / {formatTime(audioDuration)}
+                  </span>
+                </div>
+
+                {/* Progress Bar */}
+                <input
+                  type="range"
+                  min="0"
+                  max={audioDuration || 0}
+                  value={audioCurrentTime}
+                  onChange={handleSeek}
+                  disabled={isAnalyzingUpload}
+                  className="w-full h-2 rounded-lg appearance-none cursor-pointer disabled:opacity-50"
+                  style={{
+                    background: `linear-gradient(to right, hsl(var(--primary)) 0%, hsl(var(--primary)) ${(audioCurrentTime / audioDuration) * 100}%, hsl(var(--muted-foreground) / 0.3) ${(audioCurrentTime / audioDuration) * 100}%, hsl(var(--muted-foreground) / 0.3) 100%)`
+                  }}
+                />
+
+                <audio
+                  ref={audioRef}
+                  src={uploadedAudioUrl}
+                  onTimeUpdate={handleAudioTimeUpdate}
+                  onLoadedMetadata={handleAudioLoadedMetadata}
+                  className="hidden"
+                />
+              </div>
+            )}
+          </div>}
+
+          <div className="flex gap-4">
+            <Button variant="hero" size="lg" onClick={handleRecord} disabled={isAnalyzingUpload} className={isRecording ? "animate-pulse bg-destructive hover:bg-destructive/90" : ""}>
+              {isRecording ? <>
+                <Circle className="w-5 h-5 fill-current" />
+                Stop Recording
+              </> : <>
+                <Mic className="w-5 h-5" />
+                Record
+              </>}
+            </Button>
+            <input ref={fileInputRef} type="file" accept="audio/*" onChange={handleFileUpload} className="hidden" />
+            <Button variant="glass" size="lg" onClick={handleUploadClick} disabled={isAnalyzingUpload || isRecording}>
+              <Upload className="w-5 h-5" />
+              Upload Audio
+            </Button>
+          </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Scenario selector */}
-          <div className="space-y-6">
-            <h3 className="font-display text-xl font-semibold">Select a Scenario</h3>
-            
-            <div className="grid gap-3">
-              {scenarios.map(scenario => <div key={scenario.id} className={`w-full p-4 rounded-xl transition-all duration-300 ${selectedScenario && selectedScenario.id === scenario.id && !isRecording ? "glass-card shadow-lg border-primary/50" : "bg-muted/50 hover:bg-muted"}`}>
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold">{scenario.title}</p>
-                      <p className="text-sm text-muted-foreground">{scenario.description}</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      
-                      <button onClick={() => selectedScenario && selectedScenario.id === scenario.id && isPlaying ? handleStopScenario() : handlePlayScenario(scenario)} disabled={isAnalyzingUpload || isRecording} className="w-10 h-10 rounded-full gradient-bg flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300 disabled:opacity-50 disabled:hover:scale-100">
-                        {selectedScenario && selectedScenario.id === scenario.id && isPlaying ? (
-                          <Square className="w-4 h-4 text-primary-foreground fill-primary-foreground" />
-                        ) : (
-                          <Play className="w-4 h-4 text-primary-foreground ml-0.5" />
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                  
-                  {/* Scenario Audio Player - On Same Card */}
-                  {selectedScenario?.id === scenario.id && scenario.sampleFile && isPlaying && (
-                    <div className="pt-3  space-y-2">
-                      {/* Time and Duration */}
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-muted-foreground">
-                          {formatTime(scenarioCurrentTime)} / {formatTime(scenarioDuration)}
-                        </span>
-                      </div>
-                      
-                      {/* Progress Bar */}
-                      <input 
-                        type="range" 
-                        min="0" 
-                        max={scenarioDuration || 0}
-                        value={scenarioCurrentTime}
-                        onChange={handleScenarioSeek}
-                        className="w-full h-2 rounded-lg appearance-none cursor-pointer"
-                        style={{
-                          background: `linear-gradient(to right, hsl(var(--primary)) 0%, hsl(var(--primary)) ${(scenarioCurrentTime / scenarioDuration) * 100}%, hsl(var(--muted-foreground) / 0.3) ${(scenarioCurrentTime / scenarioDuration) * 100}%, hsl(var(--muted-foreground) / 0.3) 100%)`
-                        }}
-                      />
-                    </div>
-                  )}
-                </div>)}
-            </div>
-
-            {/* Uploaded file display */}
-            {uploadedFile && <div className="p-4 rounded-xl glass-card border-primary/50 space-y-3">
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3 flex-1 min-w-0">
-                    <FileAudio className="w-5 h-5 text-primary" />
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold truncate">{uploadedFile.name}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB
-                      </p>
-                    </div>
-                  </div>
-                  {uploadedAudioUrl && (
-                    <button 
-                      onClick={isPlayingUpload ? handleStopUpload : handlePlayUpload}
-                      disabled={isAnalyzingUpload}
-                      className="w-10 h-10 rounded-full gradient-bg flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300 disabled:opacity-50 disabled:hover:scale-100 flex-shrink-0"
-                    >
-                      {isPlayingUpload ? (
-                        <Square className="w-4 h-4 text-primary-foreground fill-primary-foreground" />
-                      ) : (
-                        <Play className="w-4 h-4 text-primary-foreground ml-0.5" />
-                      )}
-                    </button>
-                  )}
-                </div>
-                {uploadedAudioUrl && (
-                  <div className="space-y-2">
-                    {/* Time and Duration */}
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-muted-foreground">
-                        {formatTime(audioCurrentTime)} / {formatTime(audioDuration)}
-                      </span>
-                    </div>
-                    
-                    {/* Progress Bar */}
-                    <input 
-                      type="range" 
-                      min="0" 
-                      max={audioDuration || 0}
-                      value={audioCurrentTime}
-                      onChange={handleSeek}
-                      disabled={isAnalyzingUpload}
-                      className="w-full h-2 rounded-lg appearance-none cursor-pointer disabled:opacity-50"
-                      style={{
-                        background: `linear-gradient(to right, hsl(var(--primary)) 0%, hsl(var(--primary)) ${(audioCurrentTime / audioDuration) * 100}%, hsl(var(--muted-foreground) / 0.3) ${(audioCurrentTime / audioDuration) * 100}%, hsl(var(--muted-foreground) / 0.3) 100%)`
-                      }}
-                    />
-                    
-                    <audio 
-                      ref={audioRef}
-                      src={uploadedAudioUrl}
-                      onTimeUpdate={handleAudioTimeUpdate}
-                      onLoadedMetadata={handleAudioLoadedMetadata}
-                      className="hidden"
-                    />
-                  </div>
-                )}
-              </div>}
-
-            <div className="flex gap-4">
-              <Button variant="hero" size="lg" onClick={handleRecord} disabled={isAnalyzingUpload} className={isRecording ? "animate-pulse bg-destructive hover:bg-destructive/90" : ""}>
-                {isRecording ? <>
-                    <Circle className="w-5 h-5 fill-current" />
-                    Stop Recording
-                  </> : <>
-                    <Mic className="w-5 h-5" />
-                    Record
-                  </>}
-              </Button>
-              <input ref={fileInputRef} type="file" accept="audio/*" onChange={handleFileUpload} className="hidden" />
-              <Button variant="glass" size="lg" onClick={handleUploadClick} disabled={isAnalyzingUpload || isRecording}>
-                <Upload className="w-5 h-5" />
-                Upload Audio
-              </Button>
-            </div>
-          </div>
-
-          {/* Phone mockup with result */}
-          <div className="flex justify-center">
-            <div className="relative">
-              <div className="absolute inset-0 blur-3xl opacity-30" style={{
+        {/* Phone mockup with result */}
+        <div className="flex justify-center">
+          <div className="relative">
+            <div className="absolute inset-0 blur-3xl opacity-30" style={{
               background: 'var(--gradient-hero)'
             }} />
-              
-              <div className="relative phone-mockup w-72 md:w-80">
-                <div className="phone-screen aspect-[9/19] flex flex-col">
-                  {/* Status bar */}
-                  <div className="h-12 px-6 flex items-center justify-between bg-card">
-                    <span className="text-xs text-muted-foreground">9:41</span>
-                    <div className="w-20 h-6 rounded-full bg-foreground/10" />
-                    <div className="flex gap-1">
-                      <div className="w-4 h-3 rounded-sm bg-foreground/30" />
-                    </div>
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="flex-1 p-6 space-y-6">
-                    {/* Call info */}
-                    <div className="text-center space-y-2">
-                      <p className="text-sm text-muted-foreground">
-                        {isRecording ? "Recording..." : uploadedFile ? "Uploaded Audio" : "Incoming Call"}
-                      </p>
-                      <p className="font-display text-xl font-semibold">
-                        {isRecording ? "Live Recording" : uploadedFile ? uploadedFile.name.split('.')[0] : selectedScenario?.title || "Select a Scenario"}
-                      </p>
-                    </div>
 
-                    {/* Waveform animation */}
-                    <div className="h-24 flex items-center justify-center gap-1">
-                      {[...Array(20)].map((_, i) => <div key={i} className={`w-1 rounded-full transition-all duration-300 ${(isPlaying || isRecording || isAnalyzingUpload) ? "bg-primary animate-pulse" : "bg-muted"}`} style={{
+            <div className="relative phone-mockup w-72 md:w-80">
+              <div className="phone-screen aspect-[9/19] flex flex-col">
+                {/* Status bar */}
+                <div className="h-12 px-6 flex items-center justify-between bg-card">
+                  <span className="text-xs text-muted-foreground">9:41</span>
+                  <div className="w-20 h-6 rounded-full bg-foreground/10" />
+                  <div className="flex gap-1">
+                    <div className="w-4 h-3 rounded-sm bg-foreground/30" />
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 p-6 space-y-6">
+                  {/* Call info */}
+                  <div className="text-center space-y-2">
+                    <p className="text-sm text-muted-foreground">
+                      {isRecording ? "Recording..." : uploadedFile ? "Uploaded Audio" : "Incoming Call"}
+                    </p>
+                    <p className="font-display text-xl font-semibold">
+                      {isRecording ? "Live Recording" : uploadedFile ? uploadedFile.name.split('.')[0] : selectedScenario?.title || "Select a Scenario"}
+                    </p>
+                  </div>
+
+                  {/* Waveform animation */}
+                  <div className="h-24 flex items-center justify-center gap-1">
+                    {[...Array(20)].map((_, i) => <div key={i} className={`w-1 rounded-full transition-all duration-300 ${(isPlaying || isRecording || isAnalyzingUpload) ? "bg-primary animate-pulse" : "bg-muted"}`} style={{
                       height: (isPlaying || isRecording || isAnalyzingUpload) ? `${Math.random() * 60 + 20}%` : "20%",
                       animationDelay: `${i * 0.05}s`
                     }} />)}
-                    </div>
-
-                    {/* Analysis indicator */}
-                    {isAnalyzingUpload && <div className="flex items-center justify-center gap-2 text-primary">
-                        <Mic className="w-5 h-5 animate-pulse" />
-                        <span className="text-sm font-medium">Analyzing voice...</span>
-                      </div>}
-
-                    {/* Recording indicator */}
-                    {isRecording && !isAnalyzingUpload && <div className="flex items-center justify-center gap-2 text-destructive">
-                        <Circle className="w-4 h-4 fill-current animate-pulse" />
-                        <span className="text-sm font-medium">Recording audio...</span>
-                      </div>}
-                    {/* Result */}
-                    {displayResult && !isRecording && <div className={`p-4 rounded-2xl space-y-3 animate-popup ${
-                      displayResult.result === "scam" ? "bg-destructive/10 border border-destructive/20" :
-                      displayResult.result === "suspicious" ? "bg-amber-500/10 border border-amber-500/20" :
-                      "bg-green-500/10 border border-green-500/20"
-                    }`}>
-                        <div className="flex items-center gap-2">
-                          {displayResult.result === "scam" ? <>
-                              <AlertTriangle className="w-5 h-5 text-destructive" />
-                              <span className="font-semibold text-destructive">Scam Detected</span>
-                            </> : displayResult.result === "suspicious" ? <>
-                              <AlertTriangle className="w-5 h-5 text-amber-500" />
-                              <span className="font-semibold text-amber-500">Suspicious Call</span>
-                            </> : <>
-                              <CheckCircle className="w-5 h-5 text-green-500" />
-                              <span className="font-semibold text-green-500">{displayResult.analysis.split('\n')[0]}</span>
-                            </>}
-                        </div>
-                        <p className="text-sm text-muted-foreground whitespace-pre-wrap">
-                          {displayResult.analysis.split('\n').slice(1).join('\n')}
-                        </p>
-                      </div>}
-
-                      {displayResult && displayResult.result === "scam" && (
-                        <div className="flex gap-4 w-full animate-popup">
-                          <button className="flex-1 py-3 rounded-xl bg-destructive text-destructive-foreground font-medium">
-                            Block
-                          </button>
-                          <button className="flex-1 py-3 rounded-xl bg-muted text-muted-foreground font-medium">
-                            Report
-                          </button>
-                        </div>
-                      )}
                   </div>
+
+                  {/* Analysis indicator */}
+                  {isAnalyzingUpload && <div className="flex items-center justify-center gap-2 text-primary">
+                    <Mic className="w-5 h-5 animate-pulse" />
+                    <span className="text-sm font-medium">Analyzing voice...</span>
+                  </div>}
+
+                  {/* Recording indicator */}
+                  {isRecording && !isAnalyzingUpload && <div className="flex items-center justify-center gap-2 text-destructive">
+                    <Circle className="w-4 h-4 fill-current animate-pulse" />
+                    <span className="text-sm font-medium">Recording audio...</span>
+                  </div>}
+                  {/* Result */}
+                  {displayResult && !isRecording && <div className={`p-4 rounded-2xl space-y-3 animate-popup ${displayResult.result === "scam" ? "bg-destructive/10 border border-destructive/20" :
+                      displayResult.result === "suspicious" ? "bg-amber-500/10 border border-amber-500/20" :
+                        "bg-green-500/10 border border-green-500/20"
+                    }`}>
+                    <div className="flex items-center gap-2">
+                      {displayResult.result === "scam" ? <>
+                        <AlertTriangle className="w-5 h-5 text-destructive" />
+                        <span className="font-semibold text-destructive">Scam Detected</span>
+                      </> : displayResult.result === "suspicious" ? <>
+                        <AlertTriangle className="w-5 h-5 text-amber-500" />
+                        <span className="font-semibold text-amber-500">Suspicious Call</span>
+                      </> : <>
+                        <CheckCircle className="w-5 h-5 text-green-500" />
+                        <span className="font-semibold text-green-500">{displayResult.analysis.split('\n')[0]}</span>
+                      </>}
+                    </div>
+                    <p className="text-sm text-muted-foreground whitespace-pre-wrap">
+                      {displayResult.analysis.split('\n').slice(1).join('\n')}
+                    </p>
+                  </div>}
+
+                  {displayResult && displayResult.result === "scam" && (
+                    <div className="flex gap-4 w-full animate-popup">
+                      <button className="flex-1 py-3 rounded-xl bg-destructive text-destructive-foreground font-medium">
+                        Block
+                      </button>
+                      <button className="flex-1 py-3 rounded-xl bg-muted text-muted-foreground font-medium">
+                        Report
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>;
+    </div>
+  </section>;
 }
