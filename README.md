@@ -88,7 +88,7 @@ The Machine Learning kernel analyzes specific bio-acoustic markers:
 Best for users who want to see the system in action without configuring local environments.<br>
 **Prerequisites:** [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
 ```powershell
-   git clone https://github.com/Kaewkloaw/callsense.git
+   git clone https://github.com/Kaewkloaw/CallSense.git
    cd callsense
    docker-compose up --build
 ```
@@ -100,7 +100,7 @@ Best for developers who want to modify the code and see changes in Just-in-time.
 ### Step 1: Clone the repository
 
 ```powershell
-git clone https://github.com/Kaewkloaw/callsense.git
+git clone https://github.com/Kaewkloaw/CallSense.git
 ```
 
 ### Step 2: Initialize ML Kernel [terminal 1]
@@ -222,17 +222,6 @@ VITE_API_URL=http://localhost:3000   # Gateway Target
 </details>
 
 <details>
-  <summary>🕵️ Demo Scenarios</summary>
-
-The dashboard includes pre-loaded forensic samples for system validation:
-
-- **⚠️ Bank Scam:** Simulation of AI-generated financial fraud.
-- **⚠️ Government Scam:** Simulation of authority impersonation.
-- **📞 Delivery IVR:** Control sample of legacy automated systems.
-- **✅ Real Company:** Control sample of organic human business communication.
-</details>
-
-<details>
   <summary>🛠️ Troubleshooting</summary>
 
 | Error Code / Issue               | Diagnostic Step                                              |
@@ -254,6 +243,6 @@ The dashboard includes pre-loaded forensic samples for system validation:
 
 <div align="center">
   <hr>
-  <p><b>CallSense Security Systems &copy; 2024</b><br>
+  <p><b>CallSense Security Systems &copy; 2025</b><br>
   <i>Detect. Verify. Protect.</i></p>
 </div>
