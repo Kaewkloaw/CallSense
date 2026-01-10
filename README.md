@@ -24,7 +24,7 @@
 
 </div>
 
-https://github.com/user-attachments/assets/3765659a-7b23-44b6-a0ea-7c546e861849
+// video
 
 **CallSense** is an advanced cybersecurity utility designed to mitigate the risks of Social Engineering and Voice Phishing (Vishing). By leveraging deep learning algorithms, CallSense analyzes audio frequencies in just-in-time to distinguish between organic human speech and synthetic AI-generated artifacts.
 <br>
@@ -83,6 +83,7 @@ Best for users who want to see the system in action without configuring local en
    cd callsense
    docker-compose up --build
 ```
+> **Status:** Dashboard accessible at `http://localhost:8080`
 ### 💻 Option 2: Local Development (Manual Setup)
 Best for developers who want to modify the code and see changes in Just-in-time.<br>
 **Prerequisites:** Python 3.10+, Bun Runtime, and Node.js.
@@ -95,29 +96,29 @@ git clone https://github.com/Kaewkloaw/callsense.git
 ### Step 2: Initialize ML Kernel [terminal 1] 
 *Execute the following in PowerShell from the project root to provision the virtual environment and launch the inference server.*
 
-##### *optional*
+##### *optional for Clean existing environments*
 ```powershell
 Remove-Item -Recurse -Force venv
 ```
-#### [INIT] Clean existing environments & Create VENV
+#### Create VENV
 ```powershell
 python -m venv venv
 ```
 ```powershell
 .\venv\Scripts\Activate.ps1
 ```
-##### *optional*
+##### *optional for Force pip upgrad*
 ```powershell
 python -m ensurepip --upgrade
 python -m pip install --upgrade pip
 ```
-#### [DEPENDENCIES] Force pip upgrade & Install Core Libraries
+#### Install Core Libraries
 ```powershell
 pip install uv
 uv pip install "llvmlite>=0.43.0" "numba>=0.59.0"
 uv pip install -r .\Backend\requirements.txt
 ```
-#### [LAUNCH] Start Inference Engine on Port 8000
+#### Start Inference Engine on Port 8000
 
 ```powershell
 cd Backend
