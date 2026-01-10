@@ -23,14 +23,13 @@
 
 </div>
 
-
 <div align="center">
-  <video src="https://github.com/user-attachments/assets/0310bc9a-b754-427f-8b31-f53e5d6a8787" controls loop autoplay muted width="100%" style="border-radius: 10px;">
+  <video src="https://github.com/user-attachments/assets/0310bc9a-b754-427f-8b31-f53e5d6a8787" controls loop autoplay muted width="100%" style="border-radius: 12px; border: 1px solid #39FF14;">
   </video>
-
-  <p><i>โปรดเปิดเพื่อเปิดเสียงเพื่อรับชมการสาธิตระบบ CallSense</i></p>
+  <p align="center">
+    <i>🔊 <b>Note:</b> Please click the volume icon to enable audio for the CallSense system demonstration.</i>
+  </p>
 </div>
-
 
 **CallSense** is an advanced cybersecurity utility designed to mitigate the risks of Social Engineering and Voice Phishing (Vishing). By leveraging deep learning algorithms, CallSense analyzes audio frequencies in just-in-time to distinguish between organic human speech and synthetic AI-generated artifacts.
 <br>
