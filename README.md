@@ -24,25 +24,23 @@
 
 </div>
 
----
-
-## 📡 System Overview
+https://github.com/user-attachments/assets/3765659a-7b23-44b6-a0ea-7c546e861849
 
 **CallSense** is an advanced cybersecurity utility designed to mitigate the risks of Social Engineering and Voice Phishing (Vishing). By leveraging deep learning algorithms, CallSense analyzes audio frequencies in just-in-time to distinguish between organic human speech and synthetic AI-generated artifacts.
-
+<br>
 This system operates on a **Zero-Trust** model regarding audio data, providing immediate forensic analysis to prevent fraud before it occurs.
-
-### 🛡️ Core Capabilities (MVP)
-
+<details>
+<summary>🛡️ Core Capabilities (MVP) (JSON Output)</summary>
+  
 * **Synthetic Voice Detection:** Algorithmic identification of deepfake patterns and vocoder artifacts.
 * **Just-in-Time Threat Assessment:** Dynamic classification of calls into risk tiers (High/Medium/Low).
 * **Scam Prevention Protocols:** Proactive alerting system for impersonation attacks.
 * **Privacy-First Architecture:** All telemetry and analysis are processed locally; no raw audio data leaves the secure environment.
+</details>
 
----
-
-## 📊 Threat Intelligence & Risk Levels
-
+<details>
+  <summary>📊 Threat Intelligence & Risk Levels)</summary>
+  
 The system utilizes a confidence-based scoring engine to determine the probability of AI manipulation.
 
 | Threat Score (AI Confidence) | Risk Classification | System Status | Protocol / Action |
@@ -50,11 +48,11 @@ The system utilizes a confidence-based scoring engine to determine the probabili
 | **≥ 0.80** | 🔴 **CRITICAL** | **AI / SCAM CONFIRMED** | **TERMINATE CONNECTION IMMEDIATELY** |
 | **0.40 – 0.79** | 🟡 **WARNING** | **SUSPICIOUS ACTIVITY** | **VERIFY IDENTITY via SECONDARY CHANNEL** |
 | **< 0.40** | 🟢 **SAFE** | **HUMAN VOICE** | **PROCEED WITH CAUTION** |
+</details>
 
----
-
-## ⚙️ Detection Methodology
-
+<details>
+  <summary>⚙️ Detection Methodology</summary>
+  
 The Machine Learning kernel analyzes specific bio-acoustic markers:
 1.  **Pitch Consistency:** Detecting unnatural "perfect" pitch maintenance common in TTS engines.
 2.  **Rhythm & Timing:** Analyzing millisecond-level speech cadences.
@@ -62,10 +60,10 @@ The Machine Learning kernel analyzes specific bio-acoustic markers:
 4.  **Natural Artifacts:** Verifying the presence of organic breath and micro-pauses.
 
 **Output:** A confidence float between `0.0` (Organic) and `1.0` (Synthetic).
+</details>
 
----
-
-## 💻 Tech Stack & Architecture
+<details>
+  <summary>💻 Tech Stack & Architecture</summary>
 
 | Component | Technology | Description |
 | :--- | :--- | :--- |
@@ -73,10 +71,10 @@ The Machine Learning kernel analyzes specific bio-acoustic markers:
 | **Backend API** | Bun, Hono, TypeScript | High-performance API Gateway |
 | **Interface** | React 18, Vite, Tailwind | Responsive Forensic Dashboard |
 | **Documentation** | Swagger UI | OpenAPI Specification |
-
----
-
-## 🚀 Getting Started
+</details>
+<details>
+  <summary>🚀 Getting Started</summary>
+  
 ### 🐳 Option 1: Docker (Recommended)
 Best for users who want to see the system in action without configuring local environments.<br>
 **Prerequisites:** [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
@@ -148,10 +146,10 @@ cp .env.example .env
 bun run dev
 ```
 > **Status:** Dashboard accessible at `http://localhost:8080`
+</details>
 
----
-
-## 🔌 API Specification
+<details>
+  <summary>🔌 API Specification</summary>
 
 ### POST `/api/predict`
 Submit audio payload for forensic analysis.
@@ -173,16 +171,10 @@ Submit audio payload for forensic analysis.
   }
 }
 ```
+</details>
 
-### GET `/api/status`
-System health check and availability probe.
-
-### GET `/api/records`
-Retrieve audit log of analyzed calls.
-
----
-
-## 🔧 Environment Configuration
+<details>
+  <summary>🔧 Environment Configuration</summary>
 
 **Backend (`.env`)**
 ```ini
@@ -194,20 +186,20 @@ PORT=3000                            # Gateway Port
 ```ini
 VITE_API_URL=http://localhost:3000   # Gateway Target
 ```
+</details>
 
----
-
-## 🕵️ Demo Scenarios
+<details>
+  <summary>🕵️ Demo Scenarios</summary>
 
 The dashboard includes pre-loaded forensic samples for system validation:
 * **⚠️ Bank Scam:** Simulation of AI-generated financial fraud.
 * **⚠️ Government Scam:** Simulation of authority impersonation.
 * **📞 Delivery IVR:** Control sample of legacy automated systems.
 * **✅ Real Company:** Control sample of organic human business communication.
+</details>
 
----
-
-## 🛠️ Troubleshooting
+<details>
+  <summary>🛠️ Troubleshooting</summary>
 
 | Error Code / Issue | Diagnostic Step |
 | :--- | :--- |
@@ -215,14 +207,15 @@ The dashboard includes pre-loaded forensic samples for system validation:
 | **Gateway Timeout (Frontend)** | Ensure `VITE_API_URL` matches the running Backend instance. |
 | **Inference Error (ML)** | Confirm Python Uvicorn is active on `http://localhost:8000`. |
 | **Upload Failure** | Validate file integrity (MP3/WAV) and check server logs. |
+</details>
 
----
-
-## 🔒 Data Privacy & Compliance
+<details>
+  <summary>🔒 Data Privacy & Compliance</summary>
 
 * **Ephemeral Storage:** Audio payloads are processed in volatile memory and discarded post-analysis.
 * **Local Processing:** No data transmission to third-party clouds.
 * **Audit Logging:** Metadata (Risk Score, Timestamp) is logged to CSV for administrative review only.
+</details>
 
 <div align="center">
   <hr>
