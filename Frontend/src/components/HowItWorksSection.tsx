@@ -130,7 +130,7 @@ export function HowItWorksSection() {
               onPause={() => setIsPlaying(false)}
               onEnded={() => setIsPlaying(false)}
             >
-              <source src="/CallSenseDemo.mp4" type="video/mp4" />
+              <source src="/callsenseDemo.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
 
