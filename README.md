@@ -22,69 +22,65 @@
   ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
 </div>
-
 <div align="center">
-  <video src="https://github.com/user-attachments/assets/0310bc9a-b754-427f-8b31-f53e5d6a8787" controls loop autoplay muted width="100%" style="border-radius: 12px; border: 1px solid #39FF14;">
-  </video>
-  <p align="center">
-    <i>🔊 <b>Note:</b> Please click the volume icon to enable audio for the CallSense system demonstration.</i>
-  </p>
+  <video src="https://github.com/user-attachments/assets/0310bc9a-b754-427f-8b31-f53e5d6a8787"></video>
+  <i>🔊 <b>Note:</b> Please click the volume icon to enable audio for the CallSense system demonstration.</i>
 </div>
-
-**CallSense** is an advanced cybersecurity utility designed to mitigate the risks of Social Engineering and Voice Phishing (Vishing). By leveraging deep learning algorithms, CallSense analyzes audio frequencies in just-in-time to distinguish between organic human speech and synthetic AI-generated artifacts.
 <br>
-This system operates on a **Zero-Trust** model regarding audio data, providing immediate forensic analysis to prevent fraud before it occurs.
 
+**CallSense** is an advanced on-device AI guardian embedded in the OS to neutralize voice fraud and deepfakes. Unlike static blacklists, it utilizes dynamic bio-acoustic fingerprinting for real-time threat detection. We deliver proactive, privacy-preserving security that is seamless and built-in from the moment the device is unboxed.
+
+### 🛡️ Core Capabilities (MVP)
 <details>
-<summary>🛡️ Core Capabilities (MVP) (JSON Output)</summary>
+  <summary><b>📲 Seamless Native Integration (Zero-Friction Adoption)</b></summary>
   
-* **Synthetic Voice Detection:** Algorithmic identification of deepfake patterns and vocoder artifacts.
-* **Just-in-Time Threat Assessment:** Dynamic classification of calls into risk tiers (High/Medium/Low).
-* **Scam Prevention Protocols:** Proactive alerting system for impersonation attacks.
-* **Privacy-First Architecture:** All telemetry and analysis are processed locally; no raw audio data leaves the secure environment.
+  <i>CallSense removes the barrier to entry for security. It is not an app that users need to download, configure, or update manually.</i>
+  * **Out-of-the-Box Protection** integrated directly into the Samsung One UI Dialer, providing instant protection for every user, regardless of their technical literacy.
+  * **On-Device Processing** powered by the device's NPU, ensuring zero latency and preserving battery life.
+  * **Privacy-First Architecture** adopts a "Privacy by Design" approach. All audio analysis is performed locally; raw voice data never leaves the user's device.
 </details>
 
 <details>
-  <summary>📊 Threat Intelligence & Risk Levels)</summary>
+  <summary><b>🧠 Hybrid Threat Detection Engine</b></summary>
   
-The system utilizes a confidence-based scoring engine to determine the probability of AI manipulation.
-
-| Threat Score (AI Confidence) | Risk Classification | System Status           | Protocol / Action                         |
-| :--------------------------- | :------------------ | :---------------------- | :---------------------------------------- |
-| **≥ 0.80**                   | 🔴 **CRITICAL**     | **AI / SCAM CONFIRMED** | **TERMINATE CONNECTION IMMEDIATELY**      |
-| **0.40 – 0.79**              | 🟡 **WARNING**      | **SUSPICIOUS ACTIVITY** | **VERIFY IDENTITY via SECONDARY CHANNEL** |
-| **< 0.40**                   | 🟢 **SAFE**         | **HUMAN VOICE**         | **PROCEED WITH CAUTION**                  |
-
+  <i>Our proprietary AI engine analyzes calls in two simultaneous dimensions to ensure maximum accuracy</i>
+  * **Deepfake Detection** detects minute artifacts, unnatural pitch consistencies, and high-frequency signatures typical of Neural Voice Synthesis (AI Voice Cloning).
+  * **Semantic & Behavioral Analysis:** listens for "Social Engineering" patterns in real-time, identifying:
+      * High-Risk Keywords e.g. transfer money, police investigation, bank account suspended.
+      * Emotional Coercion detects artificially induced urgency, aggression, or threatening tones used by scammers.
 </details>
 
 <details>
-  <summary>⚙️ Detection Methodology</summary>
+  <summary><b>✅ Verified Trust Ecosystem (Smart Caller ID)</b></summary>
   
-The Machine Learning kernel analyzes specific bio-acoustic markers:
-1.  **Pitch Consistency:** Detecting unnatural "perfect" pitch maintenance common in TTS engines.
-2.  **Rhythm & Timing:** Analyzing millisecond-level speech cadences.
-3.  **Frequency Spectrum:** Identifying high-frequency artifacts left by neural vocoders.
-4.  **Natural Artifacts:** Verifying the presence of organic breath and micro-pauses.
-
-**Output:** A confidence float between `0.0` (Organic) and `1.0` (Synthetic).
-
+  <i>CallSense restores faith in legitimate business communications by verifying the source of the call.</i>
+  * **Business Verification Protocol** utilizes cryptographically signed headers to verify calls from partner banks and organizations, effectively neutralizing Caller ID Spoofing.
+  * **The "Green Badge" Assurance** displays a prominent **Verified Badge** on the incoming call screen, allowing users to answer important calls from financial institutions with confidence.
+</details>
+    
+<details>
+  <summary><b>🎨 Ambient Alert System (Non-Intrusive UX)</b></summary>
+  
+  <i>Security warnings shouldn't be annoying. CallSense replaces disruptive pop-ups with intuitive, peripheral cues.</i>
+  * **Edge Lighting Integration** utilizes the physical edge of the Samsung display to signal risk levels globally without blocking the screen content.
+  * **Global Status Indicators**
+      * 🟢 Verified Business / Safe Caller.
+      * 🟡 Suspicious activity or unknown pattern detected.
+      * 🔴 Confirmed Fraud / Deepfake signature detected.
 </details>
 
 <details>
-  <summary>💻 Tech Stack & Architecture</summary>
-
-| Component         | Technology               | Description                   |
-| :---------------- | :----------------------- | :---------------------------- |
-| **Analysis Core** | Python, FastAPI          | ML Model & Inference Engine   |
-| **Backend API**   | Bun, Hono, TypeScript    | High-performance API Gateway  |
-| **Interface**     | React 18, Vite, Tailwind | Responsive Forensic Dashboard |
-| **Documentation** | Swagger UI               | OpenAPI Specification         |
-
-</details>
-<details>
-  <summary>🚀 Getting Started</summary>
+  <summary><b>🛡️ Active Defense & Rapid Response</b></summary>
   
-### 🐳 Option 1: Docker (Recommended)
+  <i>We provide users with tools to fight back and protect their digital identity.</i>
+  * **Anti-Voice Cloning Shield** automatically introduces subtle noise or disrupts the outgoing audio stream when a threat is detected, preventing scammers from harvesting the user's voice for future AI cloning.
+  * **One-Click Incident Reporting** streamlines the complex process of filing a complaint. With a single tap, users can generate a standardized fraud report (containing timestamps, risk scores, and attacker metadata) and securely transmit it to relevant authorities or banks instantly.
+</details>
+
+### 🚀 Getting Started
+<details>
+  <summary><b>🐳 Option 1: Docker (Recommended)</b></summary>
+  
 Best for users who want to see the system in action without configuring local environments.<br>
 **Prerequisites:** [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
 ```powershell
@@ -93,7 +89,10 @@ Best for users who want to see the system in action without configuring local en
    docker-compose up --build
 ```
 > **Status:** Dashboard accessible at `http://localhost:8080`
-### 💻 Option 2: Local Development (Manual Setup)
+</details>
+<details>
+  <summary><b>💻 Option 2: Local Development (Manual Setup)</b></summary>
+  
 Best for developers who want to modify the code and see changes in Just-in-time.<br>
 **Prerequisites:** Python 3.10+, Bun Runtime, and Node.js.
 
@@ -123,7 +122,7 @@ python -m venv venv
 .\venv\Scripts\Activate.ps1
 ```
 
-##### _optional for Force pip upgrad_
+##### _optional for Force pip upgrade_
 
 ```powershell
 python -m ensurepip --upgrade
@@ -172,6 +171,89 @@ bun run dev
 ```
 
 > **Status:** Dashboard accessible at `http://localhost:8080`
+</details>
+
+</details>
+
+### 🛣️ Roadmap
+<details>
+  <summary><b>Phase 1 Prototype & Core Technology Development (Current)</b></summary>
+  
+*Goal: Validate technical feasibility (Proof of Concept) for the Hackathon.*
+- [x] **User Research & Validation** conducted user surveys and market analysis to validate the problem statement.
+- [x] **AI Core Development** develop Real-time Deepfake & Synthetic Voice Detection Model.
+- [x] **Dashboard UI** create Risk Analysis Interface (Forensic Dashboard).
+- [x] **Infrastructure** enable Docker support for streamlined deployment.
+- [x] **Simulation Mode** develop Call Simulation Mode for demonstration purposes.
+- [ ] **Fraud Pattern Engine** implement Keyword and Emotional Urgency Detection System.
+- [ ] **Model Validation** benchmark model accuracy and latency to ensure real-time performance.
+</details>
+
+<details>
+  <summary><b>Phase 2: System Integration & Pilot Testing (Q2 2026)</b></summary>
+  
+*Goal: Embed system into Samsung Ecosystem and pilot with KBTG.*
+- [ ] **Samsung One UI Integration** embed detection engine directly into the Samsung Native Dialer.
+- [ ] **Ambient Alert System** integrate Edge Lighting API to visualize security status alerts.
+- [ ] **Verified Business Pilot** connect with KBTG database to test the "Verified Business" (Green Badge) system.
+- [ ] **Optimization** optimize NPU processing to achieve zero-latency performance.
+</details>
+
+<details>
+  <summary><b>Phase 3: Public Launch & Security Network Expansion (Q3 2026)</b></summary>
+
+*Goal: Mass user adoption and full banking integration.*
+- [ ] **Active Defense Module** activate the "Anti-Voice Cloning" defense mechanism.
+- [ ] **One-Click Reporting** implement automated One-Click Reporting to transmit evidence to banking fraud centers.
+- [ ] **Threat Intelligence Network** establish a decentralized, privacy-preserving network for sharing new scam patterns across devices.
+- [ ] **Official Release** official OTA rollout to Samsung Galaxy devices.
+</details>
+
+<details>
+  <summary><b>Phase 4: Future Expansion (Q4 2026)</b></summary>
+  
+*Goal: Enterprise-level protection and cross-platform expansion.*
+- [ ] **Cross-App Protection** extend protection to VoIP applications (LINE, Messenger, WhatsApp).
+- [ ] **Enterprise SDK** release CallSense SDK for third-party developers and other financial institutions.
+- [ ] **Next-Gen Context AI** deploy Small On-device LLMs for deeper, more complex conversational context analysis.
+</details>
+
+### 📐 Other
+<details>
+  <summary>📊 Threat Intelligence & Risk Levels</summary>
+  
+The system utilizes a confidence-based scoring engine to determine the probability of AI manipulation.
+
+| Threat Score (AI Confidence) | Risk Classification | System Status           | Protocol / Action                         |
+| :--------------------------- | :------------------ | :---------------------- | :---------------------------------------- |
+| **≥ 0.80**                   | 🔴 **CRITICAL**     | **AI / SCAM CONFIRMED** | **TERMINATE CONNECTION IMMEDIATELY**      |
+| **0.40 – 0.79**              | 🟡 **WARNING**      | **SUSPICIOUS ACTIVITY** | **VERIFY IDENTITY via SECONDARY CHANNEL** |
+| **< 0.40**                   | 🟢 **SAFE**         | **HUMAN VOICE**         | **PROCEED WITH CAUTION**                  |
+
+</details>
+
+<details>
+  <summary>⚙️ Detection Methodology</summary>
+  
+The Machine Learning kernel analyzes specific bio-acoustic markers:
+1.  **Pitch Consistency:** Detecting unnatural "perfect" pitch maintenance common in TTS engines.
+2.  **Rhythm & Timing:** Analyzing millisecond-level speech cadences.
+3.  **Frequency Spectrum:** Identifying high-frequency artifacts left by neural vocoders.
+4.  **Natural Artifacts:** Verifying the presence of organic breath and micro-pauses.
+
+**Output:** A confidence float between `0.0` (Organic) and `1.0` (Synthetic).
+
+</details>
+
+<details>
+  <summary>💻 Tech Stack & Architecture</summary>
+
+| Component         | Technology               | Description                   |
+| :---------------- | :----------------------- | :---------------------------- |
+| **Analysis Core** | Python, FastAPI          | ML Model & Inference Engine   |
+| **Backend API**   | Bun, Hono, TypeScript    | High-performance API Gateway  |
+| **Interface**     | React 18, Vite, Tailwind | Responsive Forensic Dashboard |
+| **Documentation** | Swagger UI               | OpenAPI Specification         |
 
 </details>
 
