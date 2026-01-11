@@ -39,10 +39,12 @@ export function HeroSection() {
           <div className="flex flex-wrap gap-4 animate-slide-up" style={{
             animationDelay: '0.3s'
           }}>
+            <a href="#demo">
             <Button variant="hero" size="xl">
               <Shield className="w-5 h-5" />
               Start Protection
             </Button>
+            </a>
             {videoUrl ? (
               <Button asChild variant="glass" size="xl">
                 <a href={videoUrl} target="_blank" rel="noopener noreferrer">
